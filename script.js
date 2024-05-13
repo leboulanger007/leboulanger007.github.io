@@ -120,3 +120,33 @@ function adjustContainerHeight() {
 
 window.addEventListener('resize', adjustContainerHeight);
 document.addEventListener('DOMContentLoaded', adjustContainerHeight);
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const carouselImagesContainer = document.querySelector('.carousel-images');
+  const images = document.querySelectorAll('.carousel-images img');
+  const rightArrow = document.querySelector('.right-arrow');
+  const leftArrow = document.querySelector('.left-arrow');
+
+  let imageIndex = 0;
+  const imageWidth = 812; // Image width
+
+  rightArrow.addEventListener('click', () => {
+    if (imageIndex < images.length - 1) {
+      imageIndex++;
+      updateCarousel();
+    }
+  });
+
+  leftArrow.addEventListener('click', () => {
+    if (imageIndex > 0) {
+      imageIndex--;
+      updateCarousel();
+    }
+  });
+
+  function updateCarousel() {
+    carouselImagesContainer.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
+  }
+});
+
