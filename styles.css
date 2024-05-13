@@ -16,7 +16,7 @@ body:after{
   left:0;
   right:0;
   z-index:-1; /* needed to keep in the background */
-  background: url(https://i.imgur.com/azdFAm3.jpeg) center center;
+  background: url(https://i.imgur.com/C8sSf3A.png) center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -67,17 +67,6 @@ header {
   transform: translateY(10px); /* Moves the button up on hover */
 }
 
-
-
-
-
-#mission {
-  background-image: url('https://i.imgur.com/ZfASGa3.jpeg');
-  background-size: cover;
-  background-position: center bottom -50px; /* Offset by 50px from the bottom */
-}
-
-
 #quote {
   text-align: center;
   color: white;
@@ -87,21 +76,44 @@ header {
   margin-top: 20px; /* Adjust the margin as needed */
 }
 
-#paragraph-a-propos {
-  text-align: left;
-  line-height: 36px;
-  width: 50%;
-  color: white;
-  font-family: 'Merriweather Sans', sans-serif; /* Setting the font family */
-  color: white; /* Text color */
-  font-size: 24px; /* Default font size for desktop */
-  font-weight: 300; /* Lighter font weight */
-  margin: 20px auto; /* Adjust the margin as needed */
-  padding-top: 40px;
-  letter-spacing: 0.5px;
+#mission .mission-content {
+  padding-left: 150px; /* Space from the left */
+  max-width: 60%;
 }
 
+#mission {
+  background-image: url('https://i.imgur.com/7M10jv6.png');
+  background-size: cover;
+  display: flex;
+  font-family: 'Merriweather Sans', sans-serif; /* Setting the font family */
+  justify-content: left;
+  min-height: 100vh;
+}
+
+#mission-title {
+  letter-spacing: 2px;
+  color: white; /* Adjust color as needed */
+  font-size: 36px; /* Adjust font size as needed */
+  margin-top: 100px;
+  margin-bottom: 20px; /* Space between the title and paragraph */
+}
+
+#mission-description {
+  font-size: 24px; /* Default font size for desktop */
+  line-height: 160.6%;
+  font-weight: 300; /* Lighter font weight */
+  color: white; /* Adjust color as needed */
+  font-size: 20px; /* Adjust font size as needed */
+  letter-spacing: 2px;
+}
+
+
+
+
+
 #équipe {
+  background-image: url('https://i.imgur.com/sT74xr9.png');
+  background-size: cover;
   display: flex;
   flex-direction: column; /* Stack the title and image container vertically */
   align-items: center; /* Center-align the items */
@@ -133,6 +145,10 @@ header {
   display: none;  /* Arrows not displayed on desktop */
 }
 
+#projets {
+  background-image: url('https://i.imgur.com/azxE2P2.png');
+  background-size: cover;
+}
 
 ul#menuItems {
   font-family: 'Merriweather Sans', sans-serif;
@@ -188,6 +204,142 @@ section {
   animation: fadeInRight 0.8s forwards; /* Animation to fade in and slide right */
 }
 
+#projets {
+  background-image: url('https://i.imgur.com/azxE2P2.png');
+  background-size: cover;
+  display: flex;
+  font-family: 'Merriweather Sans', sans-serif; /* Setting the font family */
+  justify-content: left;
+  min-height: 100vh;
+}
+
+#projets .projets-content {
+  padding-left: 150px; /* Space from the left */
+  max-width: 60%;
+}
+
+#projets-title {
+  letter-spacing: 2px;
+  color: white; /* Adjust color as needed */
+  font-size: 36px; /* Adjust font size as needed */
+  margin-top: 100px;
+  margin-bottom: 20px; /* Space between the title and paragraph */
+}
+
+#projets-description {
+  font-size: 24px; /* Default font size for desktop */
+  font-weight: 300; /* Lighter font weight */
+  color: white; /* Adjust color as needed */
+  font-size: 20px; /* Adjust font size as needed */
+  line-height: 1.6;
+}
+
+
+.carousel-wrapper {
+  position: relative;
+  width: 812px; /* Width of the images */
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel {
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 100); /* Adds drop shadow: x-offset, y-offset, blur-radius, color */
+  position: relative;
+  width: 812px; /* This should only be as wide as the image */
+  overflow: hidden; /* Keeps images within the bounds of the carousel */
+}
+
+.carousel-images {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.left-arrow {
+  left: -100px; /* Positioned outside the left edge of the carousel */
+}
+
+.right-arrow {
+  right: -100px; /* Positioned outside the right edge of the carousel */
+}
+
+#contact {
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  font-family: 'Merriweather Sans', sans-serif; /* Setting the font family */
+}
+
+.contact-form-container {
+  margin-top: 100px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: transparent; /* No background for the form container */
+}
+
+.contact-form-container h2 {
+  letter-spacing: 4px;
+  font-size: 36px; /* Font size */
+  color: white;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.contact-form-container label {
+  text-align: left;
+  display: block;
+  margin-top: 20px;
+  color: white;
+  font-size: 16px;
+}
+
+.contact-form-container input,
+.contact-form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: #091934; 
+  color: white;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.contact-form-container input:focus,
+.contact-form-container textarea:focus {
+  background-color: white;
+  color: #091934;
+}
+
+.contact-form-container button {
+  background-color: white;
+  color: #091934;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  display: block;  /* Makes the button a block element */
+  margin-left: auto;  /* Pushes the button to the right */
+  margin-top: 20px;
+}
+
+.contact-form-container button:hover {
+  background-color: #aaaaaa; /* Lighter gray for hover effect */
+}
+
+
+
+
+
 /* Animation keyframes */
 @keyframes fadeInRight {
   0% {
@@ -217,6 +369,8 @@ section {
   animation-delay: 2.5s; /* Starts 1 second after the page loads */
 }
 /* Add more nth-child entries if you have more list items */
+
+
 
 
 /* Responsive Design */
