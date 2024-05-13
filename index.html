@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ascension Capital</title>
+<meta charset="UTF-8"> <!-- This line specifies the character encoding -->
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+  <nav id="navbar">
+    <div id="menu">☰</div>
+    <ul id="menuItems">
+      <li><a href="#accueil">ACCUEIL</a></li>
+      <li><a href="#mission">À PROPOS</a></li>
+      <li><a href="#équipe">ÉQUIPE</a></li>
+      <li><a href="#projets">PROJETS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <section id="accueil">
+    <div class="logo-container">
+        <img src="https://i.imgur.com/kZSRj1Z.png" alt="Your Logo" id="logo">
+        <div id="quote">
+          <i>« Partenaire de <strong>votre</strong> réussite. »</i>
+        </div>
+        <a href="#mission"><img src="https://i.imgur.com/8oCdgqe.png" alt="Scroll Button" id="scrollButton"></a>
+    </div>
+</section>
+
+<section id="mission">
+  <div class="mission-content">
+      <h2 id="mission-title">À PROPOS</h2>
+      <p id="mission-description">
+        Ascension Capital est une firme de financement hypothécaire privé, valorisant des projets immobiliers porteurs de succès et les ressources financières nécessaires à leur réalisation. 
+        <br>
+        <br>
+        Notre expertise réside dans la capacité à déceler et à participer à des initiatives immobilières avec un potentiel de valeur ajoutée, en mettant l'accent sur la création de relations durables et mutuellement bénéfiques.
+      </p>
+      <a href="#équipe"><img src="https://i.imgur.com/8oCdgqe.png" alt="Scroll Button" id="scrollButton"></a>
+  </div>
+</section>
+
+
+
+<section id="équipe">
+  <div id="quote">NOTRE ÉQUIPE</div>
+  <div class="image-container">
+      <button class="arrow left">&#9664;</button> <!-- Left Arrow -->
+      <img src="https://i.imgur.com/LHgqCOK.png" alt="Photo of Thomas from the Corporate Team" class="team-photo">
+      <img src="https://i.imgur.com/9JkH9gF.png" alt="Photo of Samuel from the Corporate Team" class="team-photo visible">
+      <img src="https://i.imgur.com/MzfU77z.png" alt="Photo of Vincent from the Corporate Team" class="team-photo">
+      <button class="arrow right">&#9654;</button> <!-- Right Arrow -->
+  </div>
+
+</section>
+
+<section id="projets">
+  <div class="projets-content">
+    <h2 id="projets-title">NOS PROJETS</h2>
+    <p id="projets-description">Nous sommes déterminés à maximiser le potentiel des projets que nous soutenons en travaillant de concert avec vous. Ascension Capital se spécialise dans les projets multirésidentiels, commerciaux et de développement de terrains.</p>
+    <div class="carousel-wrapper">
+      <img src="https://i.imgur.com/N9TrFES.png" class="carousel-arrow left-arrow" alt="Left Arrow">
+      <div class="carousel">
+        <div class="carousel-images">
+          <img src="https://i.imgur.com/V5PLCiY.png" alt="Project Image 1" style="width:812px; height:380px;">
+          <img src="https://i.imgur.com/WdulQGZ.png" alt="Project Image 2" style="width:812px; height:380px;">
+          <img src="https://i.imgur.com/n6ZRK4R.png" alt="Project Image 3" style="width:812px; height:380px;">
+        </div>
+      </div>
+      <img src="https://i.imgur.com/ellspHE.png" class="carousel-arrow right-arrow" alt="Right Arrow">
+    </div>
+</section>
+<section id="contact">
+  <div class="contact-form-container">
+      <h2>NOUS CONTACTER</h2>
+      <form action="/submit-your-form-handler" method="POST">
+          <label for="name">Nom</label>
+          <input type="text" id="name" name="name" required>
+
+          <label for="email">Courriel</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="message">Votre message</label>
+          <textarea id="message" name="message" rows="12" required></textarea>
+
+          <button type="submit">Envoyer &raquo;</button>
+      </form>
+  </div>
+</section>
+
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
