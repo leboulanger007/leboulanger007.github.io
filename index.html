@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascension Capital</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Merriweather Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #0D254B;
+            background-color: white;
+        }
+
+        header {
+            background-color: #0D254B;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            background-color: white;
+            color: #0D254B;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 0;
+            margin-left: 20px;
+            border: 2px solid #0D254B;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: url('https://via.placeholder.com/1600x600') no-repeat center center;
+            background-size: cover;
+            padding: 100px 20px;
+            text-align: left;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .services {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .services div {
+            width: 30%;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 0;
+        }
+
+        .services h3 {
+            color: #0D254B;
+        }
+
+        .footer {
+            background-color: #0D254B;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer div {
+            width: 30%;
+            text-align: center;
+        }
+
+        .footer .social-icons img {
+            height: 30px;
+            margin: 0 10px;
+        }
+
+        .about-section,
+        .borrow-section {
+            padding: 50px 20px;
+        }
+
+        .about-section h2,
+        .borrow-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .about-section p,
+        .borrow-section p {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .borrow-section .criteria,
+        .borrow-section .target-clients {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .borrow-section .criteria div,
+        .borrow-section .target-clients div {
+            width: 23%;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 0;
+        }
+
+        .call-to-action {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .call-to-action a {
+            background-color: #0D254B;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 0;
+            font-weight: bold;
+        }
+
+        .team-section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .team-section .team {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .team-section .team div {
+            width: 30%;
+            padding: 20px;
+            background-color: #0D254B;
+            color: white;
+            border-radius: 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-section img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .team-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .team-section p {
+            margin: 0;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 20px 0;
+        }
+
+        .card {
+            width: 23%;
+            padding: 20px;
+            background-color: rgba(13, 37, 75, 0.8);
+            color: white;
+            border-radius: 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card img {
+            max-width: 50px;
+            margin-bottom: 10px;
+        }
+
+        .card-white {
+            background-color: white;
+            color: #0D254B;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            text-align: left;
+            width: 23%;
+        }
+
+        .card-white h4 {
+            margin-top: 0;
+        }
+
+        .card-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .burger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px;
+        }
+
+        .clientele-cible-container {
+            background: url('https://via.placeholder.com/1600x600') no-repeat center center;
+            background-size: cover;
+            padding: 50px 0;
+        }
+
+        .clientele-cible .card {
+            background-color: rgba(13, 37, 75, 0.8);
+            text-align: left;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .clientele-cible .card ul {
+            padding-left: 20px;
+        }
+
+        .clientele-cible .card li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #0D254B;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                text-align: center;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+
+            .services,
+            .borrow-section .criteria,
+            .borrow-section .target-clients,
+            .team-section .team,
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services div,
+            .borrow-section .criteria div,
+            .borrow-section .target-clients div,
+            .team-section .team div,
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Logo de l'entreprise -->
+        <a href="index.html">
+            <img src="https://via.placeholder.com/150x50" alt="Ascension Capital Logo">
+        </a>
+        <!-- Menu de navigation -->
+        <nav>
+            <div class="burger-menu" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#team">Notre équipe</a></li>
+                <li><a href="#borrow">Emprunter</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- Bouton d'appel à l'action -->
+        <a href="contact.html" class="cta-button">Demander un prêt</a>
+    </header>
+
+    <section class="hero">
+        <!-- Slogan de la section héro -->
+        <h1>Partenaire de votre réussite</h1>
+        <!-- Bouton d'appel à l'action -->
+        <a href="contact.html" class="cta-button">Demander un prêt</a>
+    </section>
+
+    <section class="services">
+        <div>
+            <!-- Bloc Emprunter -->
+            <h3>Emprunter</h3>
+            <p>Profitez de prêts hypothécaires avec des conditions flexibles pour répondre aux besoins spécifiques de votre projet.</p>
+            <a href="#borrow" class="cta-button">En savoir plus</a>
+        </div>
+        <div>
+            <!-- Bloc Nos valeurs -->
+            <h3>Nos valeurs</h3>
+            <p>Chez Ascension Capital, nous nous engageons à agir avec rigueur, intégrité, transparence et collaboration. </p>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <!-- Section À propos -->
+        <h2>À propos</h2>
+        <p>Ascension Capital est une firme de financement hypothécaire privé, valorisant des projets immobiliers porteurs de succès et les ressources financières nécessaires à leur réalisation. Notre expertise réside dans la capacité à déceler et à participer à des initiatives immobilières avec un potentiel de valeur ajoutée, en mettant l'accent sur la création de relations durables et mutuellement bénéfiques.</p>
+        <p>Nous sommes déterminés à aider les investisseurs à concrétiser leurs projets d’acquisitions et d’optimisations immobilières. Nous fournissons les fonds nécessaires pour l’acquisition ou la rénovation d’un immeuble, basés sur une évaluation de sa valeur future. Une fois les travaux achevés, l’investisseur peut refinancer le bien à travers le système bancaire traditionnel.</p>
+        <h3>Pourquoi faire affaire avec nous ?</h3>
+        <div class="card-container" style="background: url('https://via.placeholder.com/1600x600') no-repeat center center; background-size: cover;">
+            <div class="card">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Rapidité et efficacité</h4>
+                <p>Nous pouvons décaisser rapidement après la réception de tous les documents requis.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Créneau spécialisé</h4>
+                <p>Nous comblons les lacunes du système bancaire pour le prêt temporaire.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Créativité financière</h4>
+                <p>Nous offrons des solutions financières innovantes afin de maximiser vos opportunités en immobilier.</p>
+            </div>
+        </div>
+        <div class="call-to-action">
+            <a href="contact.html">Demander un prêt</a>
+        </div>
+    </section>
+
+    <section class="team-section" id="team">
+        <!-- Section Notre équipe -->
+        <h2>Notre équipe</h2>
+        <div class="team">
+            <div>
+                <img src="https://via.placeholder.com/150x150" alt="Thomas Bélanger">
+                <h3>Thomas Bélanger</h3>
+                <p>Thomas apporte une solide expérience en administration et marketing. Passionné par l’investissement et l’immobilier, il se consacre principalement au développement des affaires et à la stratégie marketing de notre entreprise. Il joue un rôle clé dans la croissance et le rayonnement d’Ascension Capital, contribuant ainsi à établir notre présence sur le marché et à identifier de nouvelles opportunités d’investissement.</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/150x150" alt="Samuel Duchesneau">
+                <h3>Samuel Duchesneau</h3>
+                <p>Investisseur immobilier chevronné, avec plusieurs propriétés à son actif Samuel possède une expertise approfondie en financement. Fort de son parcours professionnel comme banquier, il évalue les projets immobiliers et élabore des stratégies de financement optimales, jouant ainsi d'un rôle crucial dans la qualification et la réussite des projets.</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/150x150" alt="Vincent Carter">
+                <h3>Vincent Carter</h3>
+                <p>Entrepreneur général avec un vaste portefeuille immobilier, Vincent excelle en optimisation immobilière. Il possède une ingéniosité inégalée pour développer des projets à forte valeur ajoutée. Sa vision stratégique et son attention aux détails assurent la qualité et rentabilité des projets d’Ascension Capital.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="borrow-section" id="borrow">
+        <!-- Section Emprunter -->
+        <h2>Emprunter</h2>
+        <p>Ascension Capital se concentre uniquement sur les initiatives multirésidentielles, commerciales et de développement de terrains. Nous avons à cœur la réussite des projets immobiliers d’ici.</p>
+        <h3>Critères de financement</h3>
+        <div class="card-container">
+            <div class="card-white">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Prêt de 6 mois minimum</h4>
+                <p>À moins d’une entente préalable.</p>
+            </div>
+            <div class="card-white">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Montant minimal de l’emprunt de 250 000 $</h4>
+                <p>Intérêts à partir de 12 % selon le risque lié au projet.</p>
+            </div>
+            <div class="card-white">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Frais de dossiers de 3 %</h4>
+                <p>Seulement les intérêts sont payés mensuellement.</p>
+            </div>
+            <div class="card-white">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Délais d’approbation de 24 à 48 h</h4>
+                <p>Une fois la réception de tous les documents demandés.</p>
+            </div>
+        </div>
+        <h3>Caution</h3>
+        <div class="card-container">
+            <div class="card-white">
+                <img src="https://via.placeholder.com/50" alt="Icon">
+                <h4>Types de caution acceptées</h4>
+                <p>Hypothèque de premier rang, Hypothèque de deuxième rang, Caution corporative, Caution personnelle.</p>
+            </div>
+        </div>
+        <h3>Clientèle cible</h3>
+        <div class="clientele-cible-container">
+            <div class="card-container clientele-cible">
+                <div class="card">
+                    <img src="https://via.placeholder.com/50" alt="Icon">
+                    <h4>Investisseurs aguerris</h4>
+                    <ul>
+                        <li>Besoin de capital à court terme pour des compléter des acquisitions.</li>
+                        <li>Nécessité de fonds pour démarrer des projets d’envergure.</li>
+                        <li>Financement temporaire en attendant de nouveaux partenaires financiers.</li>
+                        <li>Financement pour des travaux d’optimisation majeurs.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/50" alt="Icon">
+                    <h4>Investisseurs intermédiaires</h4>
+                    <ul>
+                        <li>Manque de liquidités dû à une croissance rapide.</li>
+                        <li>Limitation de la croissance par les banques pour réduire les risques.</li>
+                        <li>Besoin de capital à court terme pour des acquisitions.</li>
+                        <li>Financement pour des travaux de rénovation ou d’optimisation.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="call-to-action">
+            <a href="contact.html">Demander un prêt</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <!-- Pied de page avec coordonnées, icônes des réseaux sociaux et mentions légales -->
+        <div>
+            <p>Adresse: TBD</p>
+            <p>Téléphone: +123 456 7890</p>
+            <p>Email: contact@ascensioncapital.com</p>
+        </div>
+        <div class="social-icons">
+            <img src="https://via.placeholder.com/30" alt="Facebook">
+            <img src="https://via.placeholder.com/30" alt="LinkedIn">
+            <img src="https://via.placeholder.com/30" alt="Twitter">
+        </div>
+        <div>
+            <p>Mentions légales</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav ul');
+            nav.classList.toggle('show');
+        }
+    </script>
+</body>
+
+</html>
