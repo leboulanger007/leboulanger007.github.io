@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ascension Capital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-
         html {
             scroll-behavior: smooth;
         }
+
         body {
-            font-family: 'Merriweather Sans', sans-serif;
+            font-family: 'Lato', sans-serif;
             margin: 0;
             padding: 0;
             color: #0D254B;
@@ -150,30 +151,26 @@
             background-color: #0D254B;
             color: white;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
 
         .footer div {
             text-align: center;
+            flex: 1 1 200px;
+            margin: 10px 0;
         }
 
-        .footer .contact-info {
-            margin-left: 20px;
-            text-align: left;
+        .footer .contact-info,
+        .footer .legal-info {
+            text-align: center;
         }
 
         .footer .social-icons {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .footer .legal-info {
-            margin-right: 20px;
+            text-align: center;
         }
 
         .footer .social-icons img {
@@ -189,13 +186,7 @@
 
             .footer .contact-info,
             .footer .legal-info {
-                margin: 10px 0;
-            }
-
-            .footer .social-icons {
-                position: static;
-                transform: none;
-                margin: 10px 0;
+                text-align: center;
             }
         }
 
@@ -207,8 +198,8 @@
         .about-section h2,
         .borrow-section h2 {
             font-size: 2em;
-            margin-bottom: 20px;
-            text-align: left;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .about-section h3,
@@ -216,35 +207,28 @@
             font-size: 1.17em;
             margin: 20px 0;
             font-weight: bold;
-            text-align: left;
-
+            text-align: center;
         }
 
         .about-section p,
         .borrow-section p {
             margin-bottom: 20px;
             text-align: left;
-            max-width: 800px;
+        }
+
+        .about-section .divider {
+            border-top: 1px solid #0D254B;
+            margin: 20px 0;
         }
 
         .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: flex-end; /* Aligns the columns to the right */
-        }
-
-        .about-text {
-            flex: 1;
-            min-width: 300px;
+            text-align: center;
         }
 
         .services-cards {
             display: flex;
+            justify-content: space-between;
             gap: 20px;
-            flex: 1;
-            justify-content: flex-start; /* Ensures cards are aligned to the left within their container */
-            flex-wrap: wrap;
         }
 
         .services-cards .card {
@@ -252,9 +236,11 @@
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 0;
+            border-radius: 4px;
             text-align: left;
-            flex: 1 1 calc(40% - 10px); /* Two columns with gap */
+            flex: 1;
+            margin-bottom: 20px;
+            min-width: calc(50% - 10px);
         }
 
         .services-cards .cta-container {
@@ -262,20 +248,16 @@
         }
 
         @media (max-width: 768px) {
-            .about-content {
-                flex-direction: column;
-                justify-content: flex-start; /* Aligns columns to the start on smaller screens */
-            }
-
             .services-cards {
                 flex-direction: column;
+                align-items: center;
             }
 
+            .services-cards .card {
+                width: 100%;
+                max-width: none;
+            }
         }
-
-
-
-
 
         .full-width-background {
             width: 100vw;
@@ -306,7 +288,7 @@
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 0;
+            border-radius: 4px;
             text-align: left;
         }
 
@@ -317,7 +299,7 @@
 
         .blue-card {
             background: rgba(13, 37, 76, 0.79);
-            border-radius: 0px;
+            border-radius: 4px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5.3px);
             -webkit-backdrop-filter: blur(5.3px);
@@ -410,7 +392,7 @@
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 0;
+            border-radius: 4px;
             color: #0D254B;
             text-align: left;
         }
@@ -503,8 +485,8 @@
 
             nav ul.show {
                 display: flex;
-                padding-bottom: 20px;   
-                padding-top: 20px; 
+                padding-bottom: 20px;
+                padding-top: 20px;
             }
 
             .hero {
@@ -514,109 +496,113 @@
         }
 
         .new-card {
-    position: relative;
-    max-width: 1280px;
-    height: 300px; /* Fixed height */
-    background: url('https://i.imgur.com/qUTpG3P.png') no-repeat center center;
-    background-size: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    overflow: hidden;
-    padding: 20px;
-}
+            position: relative;
+            max-width: 1280px;
+            height: 300px;
+            /* Fixed height */
+            background: url('https://i.imgur.com/qUTpG3P.png') no-repeat center center;
+            background-size: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            overflow: hidden;
+            padding: 20px;
+            border-radius: 4px;
+        }
 
-.new-card-overlay {
-    position: absolute;
-    top: 0;
-    right: 10%;
-    width: 30%;
-    height: 100%;
-    background: rgba(13, 37, 76, 0.79);
-    padding: 20px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    box-sizing: border-box;
-}
+        .new-card-overlay {
+            position: absolute;
+            top: 0;
+            right: 10%;
+            width: 30%;
+            height: 100%;
+            background: rgba(13, 37, 76, 0.79);
+            padding: 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
 
-.new-card-overlay-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .new-card-overlay-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.new-card-overlay h3 {
-    margin: 0;
-    font-size: 1.5em;
-}
+        .new-card-overlay h3 {
+            margin: 0;
+            font-size: 1.5em;
+        }
 
-.new-card-overlay li {
-    margin: 10px 0;
-    font-size: 1em;
-    text-align: left;
-}
+        .new-card-overlay li {
+            margin: 10px 0;
+            font-size: 1em;
+            text-align: left;
+        }
 
-.new-card-cta-button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
+        .new-card-cta-button-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
 
-.new-card-cta-button {
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 0;
-    border: 2px solid white;
-    font-weight: bold;
-}
+        .new-card-cta-button {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 0;
+            border: 2px solid white;
+            font-weight: bold;
+        }
 
-@media (max-width: 768px) {
-    .new-card {
-        height: 300px; /* Fixed height */
-        flex-direction: column;
-    }
+        @media (max-width: 768px) {
+            .new-card {
+                height: 300px;
+                /* Fixed height */
+                flex-direction: column;
+            }
 
-    .new-card-overlay {
-        width: 100%;
-        height: 100%; /* Ensure it takes full height */
-        margin-right: 0;
-        padding: 20px;
-        position: relative; /* Change from absolute to relative */
-    }
+            .new-card-overlay {
+                width: 100%;
+                height: 100%;
+                /* Ensure it takes full height */
+                margin-right: 0;
+                padding: 20px;
+                position: relative;
+                /* Change from absolute to relative */
+            }
 
-    .new-card-overlay h3 {
-        font-size: 1.2em;
-    }
+            .new-card-overlay h3 {
+                font-size: 1.2em;
+            }
 
-    .new-card-overlay p {
-        font-size: 0.9em;
-    }
+            .new-card-overlay p {
+                font-size: 0.9em;
+            }
 
-    .new-card-cta-button {
-        padding: 8px 16px;
-    }
-}
+            .new-card-cta-button {
+                padding: 8px 16px;
+            }
+        }
 
-@media (max-width: 480px) {
-    .new-card-overlay h3 {
-        font-size: 1em;
-    }
+        @media (max-width: 480px) {
+            .new-card-overlay h3 {
+                font-size: 1em;
+            }
 
-    .new-card-overlay p {
-        font-size: 0.8em;
-    }
+            .new-card-overlay p {
+                font-size: 0.8em;
+            }
 
-    .new-card-cta-button {
-        padding: 6px 12px;
-    }
-}
-
-
+            .new-card-cta-button {
+                padding: 6px 12px;
+            }
+        }
     </style>
 </head>
 
@@ -653,19 +639,20 @@
         </div>
     </section>
     <div class="container">
-
-
-
         <section class="about-section" id="about" style="padding-bottom: 0px;">
             <!-- Section À propos -->
-            <div class="container about-content">
+            <div class="about-content">
                 <div class="about-text">
                     <h2>À propos</h2>
+                    <div class="divider"></div>
                     <p>Ascension Capital est une firme de financement hypothécaire privé, valorisant des projets immobiliers porteurs de succès et les ressources financières nécessaires à leur réalisation. Notre expertise réside dans la capacité à déceler et à participer à des initiatives immobilières avec un potentiel de valeur ajoutée, en mettant l'accent sur la création de relations durables et mutuellement bénéfiques.</p>
                     <p>Nous sommes déterminés à aider les investisseurs à concrétiser leurs projets d’acquisitions et d’optimisations immobilières. Nous fournissons les fonds nécessaires pour l’acquisition ou la rénovation d’un immeuble, basés sur une évaluation de sa valeur future. Une fois les travaux achevés, l’investisseur peut refinancer le bien à travers le système bancaire traditionnel.</p>
-                    <h3>Dévouvrez l'avantage Ascension Capital</h3>
                 </div>
                 <div class="services-cards">
+                    <div class="card">
+                        <h3>Nos valeurs</h3>
+                        <div class="text">Chez Ascension Capital, nous nous engageons à agir avec rigueur, intégrité, transparence et collaboration.</div>
+                    </div>
                     <div class="card">
                         <h3>Emprunter</h3>
                         <div class="text">Profitez de prêts hypothécaires avec des conditions flexibles pour répondre aux besoins spécifiques de votre projet.</div>
@@ -673,43 +660,38 @@
                             <a href="#borrow" class="cta-button">En savoir plus</a>
                         </div>
                     </div>
-                    <div class="card">
-                        <h3>Nos valeurs</h3>
-                        <div class="text">Chez Ascension Capital, nous nous engageons à agir avec rigueur, intégrité, transparence et collaboration.</div>
-                    </div>
                 </div>
-            </div>
-            <div class="full-width-background">
-                <div class="container">
-                    <div class="card-container">
-                        <div class="card blue-card">
-                            <div class="icon">
-                                <img src="https://i.imgur.com/4xNKocD.png" alt="Stopwatch Icon">
-                            </div>
-                            <div class="title">Rapidité et efficacité</div>
-                            <div class="text">Nous pouvons décaisser rapidement après la réception de tous les documents requis.</div>
-                        </div>
-                        <div class="card blue-card">
-                            <div class="icon">
-                                <img src="https://i.imgur.com/qhI5krF.png" alt="Crosshair Icon">
-                            </div>
-                            <div class="title">Créneau spécialisé</div>
-                            <div class="text">Nous comblons les lacunes du système bancaire pour le prêt temporaire.</div>
-                        </div>
-                        <div class="card blue-card">
-                            <div class="icon">
-                                <img src="https://i.imgur.com/LAwqBNg.png" alt="Lightbulb Icon">
-                            </div>
-                            <div class="title">Créativité financière</div>
-                            <div class="text">Nous offrons des solutions financières innovantes afin de maximiser vos opportunités en immobilier.</div>
-                        </div>
-                    </div>
-                </div>
+                <h3>Dévouvrez l'avantage Ascension Capital</h3>
             </div>
         </section>
-        
-        
-        
+
+        <div class="full-width-background">
+            <div class="container">
+                <div class="card-container">
+                    <div class="card blue-card">
+                        <div class="icon">
+                            <img src="https://i.imgur.com/4xNKocD.png" alt="Stopwatch Icon">
+                        </div>
+                        <div class="title">Rapidité et efficacité</div>
+                        <div class="text">Nous pouvons décaisser rapidement après la réception de tous les documents requis.</div>
+                    </div>
+                    <div class="card blue-card">
+                        <div class="icon">
+                            <img src="https://i.imgur.com/qhI5krF.png" alt="Crosshair Icon">
+                        </div>
+                        <div class="title">Créneau spécialisé</div>
+                        <div class="text">Nous comblons les lacunes du système bancaire pour le prêt temporaire.</div>
+                    </div>
+                    <div class="card blue-card">
+                        <div class="icon">
+                            <img src="https://i.imgur.com/LAwqBNg.png" alt="Lightbulb Icon">
+                        </div>
+                        <div class="title">Créativité financière</div>
+                        <div class="text">Nous offrons des solutions financières innovantes afin de maximiser vos opportunités en immobilier.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section class="team-section" id="team">
             <!-- Section Notre équipe -->
@@ -747,36 +729,53 @@
             <div class="card-container">
                 <div class="card">
                     <div class="icon">
-                        <img src="https://i.imgur.com/yBbcLNs.png" alt="Calendar Icon">
+                        <img src="calendar3.svg" alt="Calendar Icon">
                     </div>
                     <div class="title">Prêt de 6 mois minimum</div>
                     <div class="text">À moins d’une entente préalable.</div>
                 </div>
                 <div class="card">
                     <div class="icon">
-                        <img src="https://i.imgur.com/FFjVGYE.png" alt="Cash Coin Icon">
+                        <img src="cash-coin.svg" alt="Cash Coin Icon">
                     </div>
                     <div class="title">Montant minimal de l’emprunt de 250 000 $</div>
                     <div class="text">Intérêts à partir de 12 % selon le risque lié au projet.</div>
                 </div>
                 <div class="card">
                     <div class="icon">
-                        <img src="https://i.imgur.com/Dqmv1Fs.png" alt="Percent Icon">
+                        <img src="percent.svg" alt="Percent Icon">
                     </div>
                     <div class="title">Frais de dossiers de 3 %</div>
                     <div class="text">Seulement les intérêts sont payés mensuellement.</div>
                 </div>
                 <div class="card">
                     <div class="icon">
-                        <img src="https://i.imgur.com/YFck6UU.png" alt="Fast Forward Icon">
+                        <img src="fast-forward.svg" alt="Fast Forward Icon">
                     </div>
                     <div class="title">Délais d'approbation de 24 à 48 h</div>
                     <div class="text">Une fois la réception de tous les documents demandés.</div>
                 </div>
             </div>
-            <h3>Nos profils d'investisseurs</h3>
-            <section class="clientele-cible-section">
 
+            <div class="new-card">
+                <div class="new-card-overlay">
+                    <div class="new-card-overlay-content">
+                        <h3>Cautions</h3>
+                        <ul>
+                            <li>Hypothèque de premier rang</li>
+                            <li>Hypothèque de deuxième rang</li>
+                            <li>Cautions corporatives</li>
+                            <li>Cautions personnelles</li>
+                        </ul>
+                        <div class="new-card-cta-button-container">
+                            <a href="contact.html" class="new-card-cta-button">DEMANDER UN PRÊT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Clientèle cible</h3>
+            <section class="clientele-cible-section">
                 <div class="full-width-background-clientele">
                     <div class="container">
                         <div class="card-container clientele-cible">
@@ -812,24 +811,6 @@
                     </div>
                 </div>
             </section>
-
-            <div class="new-card">
-                <div class="new-card-overlay">
-                    <div class="new-card-overlay-content">
-                        <h3>Cautions</h3>
-                        <ul>
-                            <li>Hypothèque de premier rang</li>
-                            <li>Hypothèque de deuxième rang</li>
-                            <li>Cautions corporatives</li>
-                            <li>Cautions personnelles</li>
-                        </ul>
-                        <div class="new-card-cta-button-container">
-                            <a href="contact.html" class="new-card-cta-button">DEMANDER UN PRÊT</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </section>
     </div>
 
@@ -848,6 +829,7 @@
             <p>Mentions légales</p>
         </div>
     </footer>
+    
 
     <script>
         function toggleMenu() {
