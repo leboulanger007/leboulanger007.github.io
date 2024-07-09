@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1280px;
+            max-width: 1080px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -145,6 +145,7 @@
 
         .services .card .cta-container {
             margin-top: 20px;
+            text-align: right; /* Ensure the button aligns to the right */
         }
 
         .footer {
@@ -191,12 +192,15 @@
         }
 
         .about-section,
-        .borrow-section {
+        .borrow-section,
+        .team-section {
             padding: 50px 0;
+            background-size: cover;
         }
 
         .about-section h2,
-        .borrow-section h2 {
+        .borrow-section h2,
+        .team-section h2 {
             font-size: 2em;
             margin-bottom: 10px;
             text-align: left;
@@ -216,15 +220,15 @@
             text-align: left;
         }
 
-        .about-section .divider {
+        .about-section .divider,
+        .borrow-section .divider,
+        .team-section .divider {
             border-top: 1px solid #0D254B;
             margin: 20px 0;
             max-width: 100px;
         }
 
         .borrow-section .divider {
-            border-top: 1px solid #0D254B;
-            margin: 20px 0;
             max-width: 160px;
         }
 
@@ -233,8 +237,8 @@
         }
 
         .services-cards {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
@@ -245,13 +249,14 @@
             transition: transform 0.3s, box-shadow 0.3s;
             border-radius: 4px;
             text-align: left;
-            flex: 1;
-            margin-bottom: 20px;
-            min-width: calc(50% - 10px);
+            margin-bottom: 20px; /* Add margin-bottom to create space after the cards */
         }
+
+
 
         .services-cards .cta-container {
             margin-top: 20px;
+            text-align: right;
         }
 
         @media (max-width: 768px) {
@@ -283,6 +288,18 @@
             padding: 50px 0;
         }
 
+        .full-width-background h2 {
+            color: white;
+            font-weight: 400;
+            /* Adjusted to less bold */
+        }
+
+        .full-width-background .divider {
+            border-top: 1px solid white;
+            max-width: 160px;
+        }
+
+
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -298,6 +315,14 @@
             border-radius: 4px;
             text-align: left;
         }
+        .card ul {
+            padding-left: 10px; /* Reduced padding-left */
+        }
+
+        .card li {
+            margin-bottom: 5px; /* Adjusted margin-bottom to increase spacing */
+        }
+
 
         .card:hover {
             transform: translateY(-5px);
@@ -323,6 +348,7 @@
         .icon img {
             width: 50px;
             height: 50px;
+            margin-right: 10px; /* Added to ensure space between icons */
         }
 
         .title {
@@ -459,6 +485,19 @@
 
         .clientele-cible .card li {
             margin-bottom: 10px;
+        }
+
+        .clientele-cible-section h2 {
+            color: white;
+            font-weight: 400; /* Adjusted to less bold */
+        }
+
+        .clientele-cible .card .text {
+            color: white;
+        }
+
+        .clientele-cible-section .divider {
+            border-top: 1px solid white;
         }
 
         .burger-menu {
@@ -610,6 +649,113 @@
                 padding: 6px 12px;
             }
         }
+
+        .new-card {
+    position: relative;
+    max-width: 1280px;
+    height: 300px; /* Fixed height */
+    background: url('https://i.imgur.com/qUTpG3P.png') no-repeat center center;
+    background-size: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align overlay to the left */
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px; /* Add margin-bottom to create space */
+}
+
+.new-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 10%; /* Position overlay on the left */
+    width: 30%;
+    height: 100%;
+    background: rgba(13, 37, 76, 0.79);
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.new-card-overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.new-card-overlay h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.new-card-overlay li {
+    margin: 10px 0;
+    font-size: 1em;
+    text-align: left;
+}
+
+.new-card-cta-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.new-card-cta-button {
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 0;
+    border: 2px solid white;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .new-card {
+        height: 300px; /* Fixed height */
+        flex-direction: column;
+    }
+
+    .new-card-overlay {
+        width: 100%;
+        height: 100%; /* Ensure it takes full height */
+        margin-left: 0;
+        padding: 20px;
+        position: relative; /* Change from absolute to relative */
+    }
+
+    .new-card-overlay h3 {
+        font-size: 1.2em;
+    }
+
+    .new-card-overlay p {
+        font-size: 0.9em;
+    }
+
+    .new-card-cta-button {
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .new-card-overlay h3 {
+        font-size: 1em;
+    }
+
+    .new-card-overlay p {
+        font-size: 0.8em;
+    }
+
+    .new-card-cta-button {
+        padding: 6px 12px;
+    }
+}
+
     </style>
 </head>
 
@@ -653,7 +799,7 @@
                     <h2>À propos</h2>
                     <div class="divider"></div>
                     <p>Ascension Capital est une firme de financement hypothécaire privé, valorisant des projets immobiliers porteurs de succès et les ressources financières nécessaires à leur réalisation. Notre expertise réside dans la capacité à déceler et à participer à des initiatives immobilières avec un potentiel de valeur ajoutée, en mettant l'accent sur la création de relations durables et mutuellement bénéfiques.</p>
-                    <p>Nous sommes déterminés à aider les investisseurs à concrétiser leurs projets d’acquisitions et d’optimisations immobilières. Nous fournissons les fonds nécessaires pour l’acquisition ou la rénovation d’un immeuble, basés sur une évaluation de sa valeur future. Une fois les travaux achevés, l’investisseur peut refinancer le bien à travers le système bancaire traditionnel.</p>
+                    <p>Nous sommes déterminés à aider les investisseurs à concrétiser leurs projets d'acquisitions et d'optimisations immobilières. Nous fournissons les fonds nécessaires pour l’acquisition ou la rénovation d’un immeuble, basés sur une évaluation de sa valeur future. Une fois les travaux achevés, l’investisseur peut refinancer le bien à travers le système bancaire traditionnel.</p>
                 </div>
                 <div class="services-cards">
                     <div class="card">
@@ -668,13 +814,13 @@
                         </div>
                     </div>
                 </div>
-                <h1>Pourquoi faire affaire avec nous?</h1>
-            
             </div>
         </section>
 
         <div class="full-width-background">
             <div class="container">
+                <h2>Pourquoi faire affaire avec nous?</h2>
+                <div class="divider"></div>
                 <div class="card-container">
                     <div class="card blue-card">
                         <div class="icon">
@@ -700,10 +846,12 @@
                 </div>
             </div>
         </div>
+        
 
         <section class="team-section" id="team">
             <!-- Section Notre équipe -->
             <h2>Notre équipe</h2>
+            <div class="divider"></div>
             <div class="team">
                 <div class="team-member">
                     <img src="https://i.imgur.com/lO1Y64g.png" alt="Thomas Bélanger">
@@ -730,15 +878,19 @@
         </section>
 
         <section class="borrow-section" id="borrow">
-            <!-- Section Emprunter -->
             <h2>Emprunter</h2>
             <div class="divider"></div>
-            <p>Vous avez une opportunité prometteuse? Vous avez besoin de financement rapidement? Parlez-nous de votre projet! Nous avons à cœur la réussite des entrepreneurs d'ici. Ascension Capital se concentre uniquement sur les initiatives multi résidentielles et commerciales. </p>
+            <div class="new-card">
+                <div class="new-card-overlay">
+                    <div class="new-card-overlay-content">
+                        <p>Vous avez une opportunité prometteuse? Vous avez besoin de financement rapidement? Parlez-nous de votre projet! Nous avons à cœur la réussite des entrepreneurs d'ici. Ascension Capital se concentre uniquement sur les initiatives multi résidentielles et commerciales.</p>
+                    </div>
+                </div>
+            </div>
             <h1>Critères de financement</h1>
             <div class="card-container">
                 <div class="card">
                     <div class="icon">
-                        <img src="https://i.imgur.com/uYkDxhe.png" alt="Calendar Icon">
                         <img src="https://i.imgur.com/yBbcLNs.png" alt="Calendar Icon">
                     </div>
                     <div class="title">Prêt de 6 mois minimum</div>
@@ -746,7 +898,6 @@
                 </div>
                 <div class="card">
                     <div class="icon">
-                        <img src="https://i.imgur.com/xlJrwcg.png" alt="Cash Coin Icon">
                         <img src="https://i.imgur.com/FFjVGYE.png" alt="Cash Coin Icon">
                     </div>
                     <div class="title">Montant minimal de l’emprunt de 250 000 $</div>
@@ -754,43 +905,32 @@
                 </div>
                 <div class="card">
                     <div class="icon">
-                        <img src="https://i.imgur.com/ONPBayW.png" alt="Percent Icon">
-                        <img src="https://i.imgur.com/Dqmv1Fs.png" alt="Percent Icon">
-                    </div>
-                    <div class="title">Frais de dossiers de 3 %</div>
-                    <div class="text">Seulement les intérêts sont payés mensuellement.</div>
-                </div>
-                <div class="card">
-                    <div class="icon">
-                        <img src="https://i.imgur.com/Xn5AkoB.png" alt="Fast Forward Icon">
                         <img src="https://i.imgur.com/YFck6UU.png" alt="Fast Forward Icon">
                     </div>
                     <div class="title">Délais d'approbation de 24 à 48 h</div>
                     <div class="text">Une fois la réception de tous les documents demandés.</div>
                 </div>
-            </div>
-
-            <div class="new-card">
-                <div class="new-card-overlay">
-                    <div class="new-card-overlay-content">
-                        <h3>Cautions</h3>
+                <div class="card">
+                    <div class="icon">
+                        <img src="https://i.imgur.com/scZBsZu.png" alt="Safe Icon">
+                    </div>
+                    <div class="title">Cautions</div>
+                    <div class="text">
                         <ul>
                             <li>Hypothèque de premier rang</li>
                             <li>Hypothèque de deuxième rang</li>
                             <li>Cautions corporatives</li>
                             <li>Cautions personnelles</li>
                         </ul>
-                        <div class="new-card-cta-button-container">
-                            <a href="contact.html" class="new-card-cta-button">DEMANDER UN PRÊT</a>
-                        </div>
                     </div>
                 </div>
             </div>
-
-            <h1>Clientèle cible</h1>
+        
             <section class="clientele-cible-section">
                 <div class="full-width-background-clientele">
                     <div class="container">
+                        <h2>Clientèle cible</h2>
+                        <div class="divider"></div>
                         <div class="card-container clientele-cible">
                             <div class="card blue-card">
                                 <div class="icon">
@@ -825,6 +965,9 @@
                 </div>
             </section>
         </section>
+        
+        
+        
     </div>
 
     <footer class="footer">
@@ -842,7 +985,6 @@
             <p>Mentions légales</p>
         </div>
     </footer>
-    
 
     <script>
         function toggleMenu() {
