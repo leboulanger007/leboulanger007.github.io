@@ -11,6 +11,34 @@
             scroll-behavior: smooth;
         }
 
+        /* Add these keyframes for the fade-in and up animation */
+        /* Keyframes for the fade-in and up animation */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Initial state for titles */
+        h2 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        /* Class to trigger the animation */
+        .fade-in-up {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+
         body {
             font-family: 'Lato', sans-serif;
             margin: 0;
@@ -32,7 +60,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
             position: relative;
         }
 
@@ -156,7 +184,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.15);
         }
 
         .footer div {
@@ -196,6 +224,7 @@
         .team-section {
             padding: 50px 0;
             background-size: cover;
+            
         }
 
         .about-section h2,
@@ -228,9 +257,7 @@
             max-width: 100px;
         }
 
-        .borrow-section .divider {
-            max-width: 160px;
-        }
+
 
         .about-content {
             text-align: left;
@@ -243,16 +270,30 @@
         }
 
         .services-cards .card {
-            background: linear-gradient(to bottom, #ffffff, #f6f6f6);
+            background: linear-gradient(to bottom, #ffffff, #f4f4f4);
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.10);
             transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 4px;
             text-align: left;
             margin-bottom: 20px; /* Add margin-bottom to create space after the cards */
         }
 
+        .services-cards .image-card {
+    padding: 0;  /* Remove padding from image card */
+}
 
+.services-cards .image-card img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;  /* Ensure the image covers the card without distortion */
+}
+
+        .card img {
+            width: 100%;
+            height: auto;
+
+        }
 
         .services-cards .cta-container {
             margin-top: 20px;
@@ -308,13 +349,27 @@
         }
 
         .card {
-            background: linear-gradient(to bottom, #ffffff, #f6f6f6);
+            background: linear-gradient(to bottom, #ffffff, #f4f4f4);
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 4px;
+
             text-align: left;
         }
+
+
+        .image-card {
+            margin: 0; /* Remove padding from the card containing the image */
+            padding: 0;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover; /* Ensure the image covers the card without distortion */
+        }
+
         .card ul {
             padding-left: 10px; /* Reduced padding-left */
         }
@@ -331,7 +386,7 @@
 
         .blue-card {
             background: rgba(13, 37, 76, 0.79);
-            border-radius: 4px;
+
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5.3px);
             -webkit-backdrop-filter: blur(5.3px);
@@ -403,29 +458,31 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 20px;
+            align-items: stretch;
         }
 
         .team-member {
             flex: 1;
             box-sizing: border-box;
-        }
+            display: flex; /* Ensure team member stretches to full height */
+            flex-direction: column; /* Ensure content inside stretches */
+                }
 
         .team-member img {
             width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
         }
 
         .team-member-content {
             width: 85%;
             margin: 0 auto;
             text-align: left;
-            background: linear-gradient(to bottom, #ffffff, #f6f6f6);
+            background: linear-gradient(to bottom, #ffffff, #f4f4f4);
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 4px;
+
             color: #0D254B;
             text-align: left;
         }
@@ -554,7 +611,7 @@
             justify-content: flex-end;
             overflow: hidden;
             padding: 20px;
-            border-radius: 4px;
+
         }
 
         .new-card-overlay {
@@ -571,7 +628,7 @@
             justify-content: center;
             text-align: center;
             box-sizing: border-box;
-            border-radius: 4px;
+
         }
 
         .new-card-overlay-content {
@@ -663,7 +720,7 @@
     justify-content: flex-start; /* Align overlay to the left */
     overflow: hidden;
     padding: 20px;
-    border-radius: 4px;
+
     margin-bottom: 20px; /* Add margin-bottom to create space */
 }
 
@@ -681,7 +738,7 @@
     justify-content: center;
     text-align: center;
     box-sizing: border-box;
-    border-radius: 4px;
+
 }
 
 .new-card-overlay-content {
@@ -770,6 +827,12 @@
     text-align: center;
 }
 
+.spacer {
+    width: 100%;
+    height: 20px; /* You can adjust the height as needed */
+}
+
+
     </style>
 </head>
 
@@ -830,7 +893,7 @@
                 </div>
             </div>
         </section>
-
+        <div class="spacer"></div>
         <div class="full-width-background">
             <div class="container">
                 <h2>Pourquoi faire affaire avec nous?</h2>
@@ -868,21 +931,21 @@
             <div class="divider"></div>
             <div class="team">
                 <div class="team-member">
-                    <img src="https://i.imgur.com/lO1Y64g.png" alt="Thomas Bélanger">
+                    <img src="https://i.imgur.com/oFxMiMK.png" alt="Thomas Bélanger">
                     <div class="team-member-content">
                         <h3>Thomas Bélanger</h3>
                         <p>Thomas apporte une solide expérience en administration et marketing. Passionné par l’investissement et l’immobilier, il se consacre principalement au développement des affaires et à la stratégie marketing de notre entreprise. Il joue un rôle clé dans la croissance et le rayonnement d’Ascension Capital, contribuant ainsi à établir notre présence sur le marché et à identifier de nouvelles opportunités d’investissement.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <img src="https://i.imgur.com/PrpuzzL.png" alt="Samuel Duchesneau">
+                    <img src="https://i.imgur.com/kG7nx9C.png" alt="Samuel Duchesneau">
                     <div class="team-member-content">
                         <h3>Samuel Duchesneau</h3>
                         <p>Investisseur immobilier chevronné, avec plusieurs propriétés à son actif Samuel possède une expertise approfondie en financement. Fort de son parcours professionnel comme banquier, il évalue les projets immobiliers et élabore des stratégies de financement optimales, jouant ainsi d'un rôle crucial dans la qualification et la réussite des projets.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <img src="https://i.imgur.com/lURS6tM.png" alt="Vincent Carter">
+                    <img src="https://i.imgur.com/djcBgu1.png" alt="Vincent Carter">
                     <div class="team-member-content">
                         <h3>Vincent Carter</h3>
                         <p>Entrepreneur général avec un vaste portefeuille immobilier, Vincent excelle en optimisation immobilière. Il possède une ingéniosité inégalée pour développer des projets à forte valeur ajoutée. Sa vision stratégique et son attention aux détails assurent la qualité et rentabilité des projets d’Ascension Capital.</p>
@@ -892,29 +955,33 @@
         </section>
 
         <section class="borrow-section" id="borrow">
-            <h2>Emprunter</h2>
-            <div class="divider"></div>
-            <div class="new-card">
-                <div class="new-card-overlay">
-                    <div class="new-card-overlay-content">
-                        <p>Vous avez une opportunité prometteuse? Vous avez besoin de financement rapidement? Parlez-nous de votre projet! Nous avons à cœur la réussite des entrepreneurs d'ici. Ascension Capital se concentre uniquement sur les initiatives multi résidentielles et commerciales.</p>
-                    </div>
+
+            <div class="services-cards">
+                <div class="card">
+                    <h2>Emprunter</h2>
+                    <div class="divider"></div>
+                    <p>Vous avez une opportunité prometteuse? Vous avez besoin de financement rapidement? Parlez-nous de votre projet! Nous avons à cœur la réussite des entrepreneurs d'ici. </p>
+                    <p>Ascension Capital se concentre uniquement sur les initiatives multirésidentielles et commerciales.</p>
+                </div>
+                <div class="card image-card">
+                    <img src="https://i.imgur.com/qUTpG3P.png" alt="Building Image">
                 </div>
             </div>
             <h1>Critères de financement</h1>
+
             <div class="card-container">
                 <div class="card">
                     <div class="icon">
                         <img src="https://i.imgur.com/yBbcLNs.png" alt="Calendar Icon">
                     </div>
                     <div class="title">Prêt de 6 mois minimum</div>
-                    <div class="text">À moins d’une entente préalable.</div>
+                    <div class="text">À moins d'une entente préalable.</div>
                 </div>
                 <div class="card">
                     <div class="icon">
                         <img src="https://i.imgur.com/FFjVGYE.png" alt="Cash Coin Icon">
                     </div>
-                    <div class="title">Montant minimal de l’emprunt de 250 000 $</div>
+                    <div class="title">Montant minimal de l'emprunt de 250,000 $</div>
                     <div class="text">Intérêts à partir de 12 % selon le risque lié au projet.</div>
                 </div>
                 <div class="card">
@@ -939,7 +1006,7 @@
                     </div>
                 </div>
             </div>
-        
+            <div class="spacer"></div>
             <section class="clientele-cible-section">
                 <div class="full-width-background-clientele">
                     <div class="container">
@@ -1009,6 +1076,22 @@
             const nav = document.querySelector('nav ul');
             nav.classList.toggle('show');
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in-up");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll("h1, h2, h3").forEach(title => {
+                observer.observe(title);
+            });
+        });
+
     </script>
 </body>
 
