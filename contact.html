@@ -4,14 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ascension Capital</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <title>Contact - Ascension Capital</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;700&display=swap');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
 
         body {
-            font-family: 'Lato', sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Merriweather Sans', sans-serif;
+            display: flex;
+            flex-direction: column;
             color: #0D254B;
             background-color: white;
         }
@@ -102,6 +107,10 @@
                 text-align: center;
                 align-items: center;
             }
+        }
+
+        .main-content {
+            flex: 1;
         }
 
         .footer {
@@ -280,21 +289,23 @@
         <a href="contact.html" class="cta-button">Demander un prêt</a>
     </header>
 
-    <div class="contact-section">
-        <div class="contact-form-container">
-            <h2>Contactez-nous</h2>
-            <form>
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" required>
+    <div class="main-content">
+        <div class="contact-section">
+            <div class="contact-form-container">
+                <h2>Contactez-nous</h2>
+                <form>
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
 
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
 
-                <button type="submit" class="cta-button-submit">Envoyer</button>
-            </form>
+                    <button type="submit" class="cta-button-submit">Envoyer</button>
+                </form>
+            </div>
         </div>
     </div>
 
