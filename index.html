@@ -45,6 +45,17 @@
             flex-direction: column;
         }
 
+        /* Add this rule to your existing <style> block */
+        body {
+            /* Override width and height from the 'body, html' rule specifically for the body */
+            width: 200vw;
+            height: 200vh;
+        
+            /* Scale the body down to 50% */
+            transform: scale(0.5);
+            transform-origin: top left;
+        }
+
         .container {
             display: flex;
             flex-direction: column;
