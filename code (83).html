@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planification des Batchs Dynamique</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --mixer-header-bg: #34495e;
+            --mixer-header-text: #ecf0f1;
+            --batch-card-bg: #ffffff;
+            --batch-card-border: #bdc3c7; 
+            --text-color: #2c3e50;
+            --input-border: #95a5a6;
+            --button-bg: #3498db;
+            --button-hover-bg: #2980b9;
+            --button-text: #ffffff;
+            --delete-button-bg: #e74c3c;
+            --delete-button-hover-bg: #c0392b;
+            
+            --tag-text: #ffffff;
+            --tag-i-bg: #2ecc71; 
+            --tag-b-bg: #e74c3c; 
+            --tag-lundi-bg: #5dade2;    
+            --tag-mardi-bg: #58d68d;    
+            --tag-mercredi-bg: #f5b041; 
+            --tag-jeudi-bg: #af7ac5;   
+            --tag-vendredi-bg: #ec7063; 
+            --tag-other-bg: #7f8c8d;
+
+            --status-actions-width: 50px; /* Width of the revealed status actions panel */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 10px;
+            box-sizing: border-box;
+            min-height: 0; 
+        }
+        
+        #lastEditInfo {
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--text-color);
+            padding: 6px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 0 auto 10px auto; 
+            width: fit-content; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        h1#weekTitle {
+            color: var(--mixer-header-bg);
+            margin: 0 15px;
+            font-size: 1.6em;
+            text-align: center;
+        }
+        .week-nav-btn {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        .week-nav-btn:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+
+        .mixers-area {
+            display: flex;
+            flex-grow: 1;
+            gap: 10px;
+            min-height: 0; 
+        }
+
+        .mixer-column {
+            flex: 1;
+            background-color: var(--bg-color);
+            border: 1px solid var(--batch-card-border);
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            min-width: 160px; 
+            overflow: hidden; 
+        }
+
+        .mixer-header {
+            background-color: var(--mixer-header-bg);
+            color: var(--mixer-header-text);
+            padding: 3px 8px; 
+            text-align: center;
+            font-weight: bold;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+        }
+        .mixer-title-operator-wrapper {
+            flex-grow: 1;
+            text-align: center;
+            cursor: pointer;
+            padding: 5px 0; 
+            border-radius: 3px; 
+        }
+        .mixer-title-operator-wrapper:hover {
+            background-color: rgba(255,255,255,0.1); 
+        }
+
+        .mixer-header .mixer-header-name {
+            display: block; 
+        }
+        .mixer-header .operator {
+            font-size: 0.8em;
+            font-style: italic;
+            display: block; 
+        }
+
+        .batches-container {
+            padding: 5px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            overflow-y: auto; 
+            min-height: 0; 
+        }
+
+        .batch-card {
+            background-color: var(--batch-card-bg);
+            border: 3px solid var(--batch-card-border); 
+            border-radius: 4px;
+            font-size: 0.9em; 
+            flex-grow: 1;   
+            flex-shrink: 1; 
+            flex-basis: 0;  
+            min-height: 85px; 
+            max-height: 20%; 
+            box-sizing: border-box;
+            position: relative; 
+            cursor: grab; 
+            overflow: hidden; 
+        }
+        .batch-card:active {
+            cursor: grabbing;
+        }
+        .batch-card.dragging {
+            opacity: 0.5;
+            border-style: dashed;
+        }
+        .batch-card.drop-target-hover {
+            background-color: #e6f7ff; 
+        }
+
+        .batch-card.empty {
+            background-color: #e9ecef;
+            border-style: dashed;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer; 
+            color: #6c757d;
+            font-style: italic;
+            max-height: 20%; 
+            flex-grow: 0; 
+            height: 70px; 
+            padding: 6px 8px; 
+        }
+         .batch-card.empty:hover {
+            background-color: #dde2e6;
+         }
+        
+        .batch-card-inner-container {
+            display: flex;
+            flex-direction: row; 
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+        }
+
+        .batch-card-content-wrapper {
+            flex-grow: 1; 
+            min-width: 0; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+            padding: 6px 8px; 
+            transition: width 0.3s ease-in-out, padding-right 0.3s ease-in-out; 
+            width: 100%;
+            overflow: hidden; 
+            position: relative; 
+            word-wrap: break-word; 
+            overflow-wrap: break-word;
+        }
+
+        .batch-card-status-actions {
+            width: 0;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: space-around; 
+            transition: width 0.3s ease-in-out;
+            overflow: hidden; 
+            background-color: rgba(236, 240, 241, 0.8); /* Lighter background for tabs */
+            border-left: 1px solid var(--batch-card-border);
+        }
+
+        .batch-card:hover .batch-card-content-wrapper {
+            width: calc(100% - var(--status-actions-width));
+            padding-right: 2px; /* Reduce padding to give more space to content */
+        }
+
+        .batch-card:hover .batch-card-status-actions {
+            width: var(--status-actions-width);
+        }
+
+        .status-action-tab {
+            width: calc(100% - 6px); 
+            background: transparent; 
+            border: none;
+            color: var(--tag-text); 
+            padding: 2px 0; 
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.75em; 
+            font-weight: bold;
+            border-radius: 3px;
+            margin: 1px 3px; 
+            transition: filter 0.2s, transform 0.1s;
+            line-height: 1.1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .status-action-tab:hover {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+
+
+        .batch-card .product-name { 
+            font-weight: bold;
+            font-size: 1.25em; 
+            margin-bottom: 4px; 
+            line-height: 1.2;
+            padding-right: 25px; /* Ensure space for tags on right */
+        }
+        .batch-card .batch-detail { 
+            font-size: 1em; 
+            margin-bottom: 3px;
+            line-height: 1.3; 
+            padding-right: 25px; /* Ensure space for tags on right */
+        }
+        .batch-card .lot-number { 
+            font-style: italic;
+        }
+        
+        .batch-tag { 
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            padding: 2px 5px;
+            border-radius: 10px; 
+            font-size: 0.85em;
+            font-weight: bold;
+            color: var(--tag-text);
+            min-width: 15px;
+            text-align: center;
+            line-height: 1.2;
+            z-index: 7; 
+        }
+        .tag-I { background-color: var(--tag-i-bg); }
+        .tag-B { background-color: var(--tag-b-bg); }
+        .tag-LUNDI { background-color: var(--tag-lundi-bg); }
+        .tag-MARDI { background-color: var(--tag-mardi-bg); }
+        .tag-MERCREDI { background-color: var(--tag-mercredi-bg); }
+        .tag-JEUDI { background-color: var(--tag-jeudi-bg); }
+        .tag-VENDREDI { background-color: var(--tag-vendredi-bg); }
+        .tag-OTHER { background-color: var(--tag-other-bg); }
+
+        .last-modified-indicator { 
+            position: absolute;
+            /* top handled by JS */
+            right: 4px; 
+            background-color: #ffc107; 
+            color: black;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            z-index: 6; 
+        }
+
+        .batch-status-tag { 
+            position: absolute;
+            bottom: 3px;
+            right: 3px; 
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: var(--tag-text); 
+            z-index: 5; 
+            max-width: calc(100% - 10px); 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
+        .controls {
+            padding: 8px; 
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .controls button {
+            padding: 8px 16px; 
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .controls button:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background-color: #fefefe; margin: auto; padding: 20px; border: 1px solid #888;
+            width: 90%; max-width: 450px; border-radius: 5px;
+        }
+        .modal-content h2 { margin-top: 0; color: var(--mixer-header-bg); }
+        .modal-content label { display: block; margin-top: 8px; font-weight: bold; font-size: 0.9em; }
+        .modal-content input[type="text"],
+        .modal-content input[type="date"], 
+        .modal-content select {
+            width: calc(100% - 12px); padding: 7px; margin-top: 4px; border: 1px solid var(--input-border);
+            border-radius: 3px; box-sizing: border-box; font-size: 0.9em;
+        }
+        .modal-buttons { margin-top: 20px; display: flex; justify-content: space-between; }
+        .modal-buttons button {  padding: 9px 14px; border: none; border-radius: 3px; cursor: pointer; font-size: 0.9em;}
+        #saveBatchBtn { background-color: var(--button-bg); color: white; flex-grow: 1; margin-left: 10px;}
+        #deleteBatchModalBtn { background-color: var(--delete-button-bg); color: white;}
+        #cancelBtn { background-color: #ccc; color: var(--text-color); }
+
+        #mixerEditModal .modal-buttons { justify-content: flex-end; gap: 10px; }
+        #saveMixerBtn { background-color: var(--button-bg); color: white; }
+        #cancelMixerEditBtn { background-color: #ccc; color: var(--text-color); }
+
+        .legend {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 15px;
+            padding: 5px 0; font-size: 0.75em; flex-shrink: 0;
+        }
+        .legend-item { display: flex; align-items: center; }
+        .legend-color { width: 12px; height: 12px; margin-right: 4px; border: 1px solid #777; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="lastEditInfo">Dernière modification des données : Jamais</div>
+        <div class="title-container">
+            <button id="prevWeekBtn" class="week-nav-btn" title="Semaine précédente">&lt;</button>
+            <h1 id="weekTitle">Planification des Batchs</h1>
+            <button id="nextWeekBtn" class="week-nav-btn" title="Semaine suivante">&gt;</button>
+        </div>
+        <div class="mixers-area" id="mixersArea">
+            <!-- Mixer columns will be generated by JavaScript -->
+        </div>
+        <div class="legend">
+            <div class="legend-item"><span class="legend-color tag-I"></span> I: Inv.</div>
+            <div class="legend-item"><span class="legend-color tag-B"></span> B: Bas Inventaire</div>
+            <div class="legend-item"><span class="legend-color tag-LUNDI"></span> LUNDI</div>
+            <div class="legend-item"><span class="legend-color tag-MARDI"></span> MARDI</div>
+            <div class="legend-item"><span class="legend-color tag-MERCREDI"></span> MERCREDI</div>
+            <div class="legend-item"><span class="legend-color tag-JEUDI"></span> JEUDI</div>
+            <div class="legend-item"><span class="legend-color tag-VENDREDI"></span> VENDREDI</div>
+            <div class="legend-item"><span class="legend-color tag-OTHER"></span> Autre Tag</div>
+        </div>
+        <div class="controls">
+            <button id="addBatchBtnGlobal">Ajouter un Batch</button>
+        </div>
+    </div>
+
+    <div id="batchModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Modifier Batch</h2>
+            <input type="hidden" id="editingMixerId">
+            <input type="hidden" id="editingBatchId">
+            <input type="hidden" id="editingBatchIndex"> 
+
+            <label for="mixerSelect">Mélangeur:</label>
+            <select id="mixerSelect"></select>
+
+            <label for="batchProduct">Produit:</label>
+            <input type="text" id="batchProduct" name="product">
+
+            <label for="batchQuantity">Quantité:</label>
+            <input type="text" id="batchQuantity" name="quantity">
+
+            <label for="batchDate">Date:</label>
+            <input type="text" id="batchDate" name="date" placeholder="ex: 5 mai 2025">
+
+            <label for="batchLot">Lot:</label>
+            <input type="text" id="batchLot" name="lot">
+
+            <label for="batchTag">Tag (Code: L, M, E, J, V, I, B):</label>
+            <input type="text" id="batchTag" name="tag" placeholder="I, B, L, M, E, J, V">
+
+            <div class="modal-buttons">
+                <button id="deleteBatchModalBtn">Supprimer</button>
+                <div> 
+                    <button id="cancelBtn">Annuler</button>
+                    <button id="saveBatchBtn">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mixerEditModal" class="modal">
+        <div class="modal-content">
+            <h2 id="mixerModalTitle">Modifier Mélangeur</h2>
+            <input type="hidden" id="editingMixerIdModalInput">
+    
+            <label for="mixerNameInput">Nom du Mélangeur:</label>
+            <input type="text" id="mixerNameInput" name="mixerName">
+    
+            <label for="mixerOperatorInput">Opérateur:</label>
+            <input type="text" id="mixerOperatorInput" name="mixerOperator">
+    
+            <div class="modal-buttons">
+                <button id="cancelMixerEditBtn">Annuler</button>
+                <button id="saveMixerBtn">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const INITIAL_EMPTY_SLOTS_PER_MIXER = 0; 
+
+        const STATUSES = [
+            { name: "En attente", code: "AWAITING_PROD", color: "#adb5bd" },
+            { name: "En production", code: "IN_PRODUCTION", color: "#0d6efd" },
+            { name: "Contrôle Qualité", code: "QC", color: "#ffc107" },
+            { name: "Approuvé CQ", code: "QC_APPROVED", color: "#198754" },
+            { name: "Mise en Barril", code: "DRUMMING", color: "#6f42c1" },
+            { name: "Prêt à expédier", code: "READY_SHIP", color: "#0dcaf0" },
+            { name: "RETENU", code: "HOLD", color: "#dc3545" }
+        ];
+
+        const STATUS_ABBREVIATIONS = {
+            "AWAITING_PROD": "ATT.",
+            "IN_PRODUCTION": "PROD.",
+            "QC": "QC",
+            "QC_APPROVED": "QC OK",
+            "DRUMMING": "BARRIL",
+            "READY_SHIP": "EXPÉ",
+            "HOLD": "HOLD"
+        };
+        
+        const FRENCH_MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+
+
+        let mixersData = [ 
+            {
+                id: "mixer1", name: "Mélangeur 1", operator: "S. Girard", batches: [
+                    { id: "m1b1", product: "Elite 2.0 REG Neutre", quantity: "20 barils", date: "5 mai 2025", lot: "L-25384", tag: "", status: STATUSES[0].code },
+                    { id: "m1b2", product: "Elite 2.0 SUPER ÉTÉ", quantity: "10 barils", date: "6 mai 2025", lot: "L-25369", tag: "E", status: STATUSES[1].code },
+                    { id: "m1b3", product: "B-5023", quantity: "2 totes", date: "7 mai 2025", lot: "L-25370", tag: "J", status: STATUSES[0].code },
+                    { id: "m1b4", product: "B-5022", quantity: "12 barils", date: "8 mai 2025", lot: "L-25371", tag: "I", status: STATUSES[0].code },
+                    { id: "m1b5", product: "B-5022 Bleu", quantity: "12 barils", date: "9 mai 2025", lot: "L-25372", tag: "", status: STATUSES[0].code }
+                ]
+            },
+            { 
+                id: "mixer2", name: "Mélangeur 2", operator: "Sylvain", batches: [
+                    { id: "m2b1", product: "MÉLANGEUR 6", quantity: "", date: "", lot: "", tag: "", status: STATUSES[0].code }, 
+                    { id: "m2b2", product: "Versa-Flex 1025", quantity: "1 baril 200kg", date: "7 mai 2025", lot: "L25392", tag: "I", status: STATUSES[2].code }, 
+                    { id: "m2b3", product: "B-1141", quantity: "4 barils 225kg", date: "6 mai 2025", lot: "L-25348", tag: "I", status: STATUSES[0].code}, 
+                    { id: "m2b4", product: "F48-1 Noir", quantity: "1 baril 200kg", date: "7 mai 2025", lot: "L-25387", tag: "B", status: STATUSES[0].code}, 
+                    { id: "m2b5", product: "F48-7 aluminium", quantity: "1 baril", date: "6 mai 2025", lot: "L-25391", tag: "", status: STATUSES[0].code}, 
+                ]
+            },
+            // ... (rest of mixersData as before) ...
+             { 
+                id: "mixer3", name: "Mélangeur 3", operator: "Patrick", batches: [
+                    { id: "m3b1", product: "Agri-Gen", quantity: "20 barils", date: "5 mai 2025", lot: "L-25374", tag: "M", status: STATUSES[0].code },
+                    { id: "m3b2", product: "Floraseal", quantity: "32 barils", date: "6 mai 2025", lot: "L-25375", tag: "I", status: STATUSES[0].code },
+                    { id: "m3b3", product: "B-5030", quantity: "24 barils 225kg", date: "6 mai 2025", lot: "L-25385", tag: "", status: STATUSES[0].code },
+                    { id: "m3b4", product: "Elite 2.0 ÉTÉ Neutre", quantity: "44 barils", date: "7 mai 2025", lot: "L-25388", tag: "", status: STATUSES[0].code },
+                    { id: "m3b5", product: "Elite 2.0 ÉTÉ Vert", quantity: "46 barils", date: "8 mai 2025", lot: "L-25393", tag: "", status: STATUSES[0].code }
+                ]
+            },
+            { 
+                id: "mixer4", name: "Mélangeur 4", operator: "Dylan", batches: [
+                    { id: "m4b1", product: "Boréal Été", quantity: "8 totes + 32 barils", date: "5 mai 2025", lot: "L-25367", tag: "B", status: STATUSES[0].code },
+                    { id: "m4b2", product: "Boréal Été", quantity: "4 totes + 52 barils", date: "6 mai 2025", lot: "L-25376", tag: "B", status: STATUSES[0].code },
+                    { id: "m4b3", product: "Elite 2.0 REG", quantity: "20 barils vert + 32 barils Neutre", date: "7 mai 2025", lot: "L-25389", tag: "B", status: STATUSES[0].code },
+                    { id: "m4b4", product: "Boréal Été", quantity: "2 totes + 62 barils", date: "7 mai 2025", lot: "L-25377", tag: "B", status: STATUSES[0].code }
+                ]
+            },
+            { 
+                id: "mixer5", name: "Mélangeur 5", operator: "Mario", batches: [
+                    { id: "m5b1", product: "Boréal Reg", quantity: "9 tôtes 1125Kg", date: "6 mai 2025", lot: "L-25386", tag: "", status: STATUSES[0].code },
+                    { id: "m5b2", product: "Boréal Été", quantity: "4 totes + 52 barils", date: "5 mai 2025", lot: "L-25378", tag: "B", status: STATUSES[0].code },
+                    { id: "m5b3", product: "Boréal Été", quantity: "2 totes 1200kg + 61 barils", date: "6 mai 2025", lot: "L-25379", tag: "B", status: STATUSES[0].code }
+                ]
+            },
+            { 
+                id: "mixer6", name: "Mélangeur 6", operator: "", batches: [
+                    { id: "m6b1", product: "F48-7 aluminium", quantity: "16 barils 200kg", date: "5 mai 2025", lot: "L-25383", tag: "I", status: STATUSES[0].code },
+                    { id: "m6b2", product: "F46-1 Noir", quantity: "10 barils 200kg", date: "5 mai 2025", lot: "L-25380", tag: "", status: STATUSES[0].code }
+                ]
+            },
+            { 
+                id: "mixer7", name: "Mélangeur 7", operator: "Robin", batches: [
+                    { id: "m7b1", product: "Boréal Été", quantity: "4 totes + 60 barils", date: "5 mai 2025", lot: "L-25381", tag: "B", status: STATUSES[0].code },
+                    { id: "m7b2", product: "Boréal Été", quantity: "6 totes + 50 barils", date: "6 mai 2025", lot: "L-25382", tag: "", status: STATUSES[0].code },
+                    { id: "m7b3", product: "Elite 50", quantity: "80 barils", date: "8 mai 2025", lot: "L-25390", tag: "", status: STATUSES[0].code }
+                ]
+            }
+        ];
+
+        const mixersArea = document.getElementById('mixersArea');
+        const lastEditInfoDiv = document.getElementById('lastEditInfo');
+        const weekTitleElement = document.getElementById('weekTitle');
+        const prevWeekBtn = document.getElementById('prevWeekBtn');
+        const nextWeekBtn = document.getElementById('nextWeekBtn');
+        
+        const batchModal = document.getElementById('batchModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const mixerSelect = document.getElementById('mixerSelect');
+        const batchProductInput = document.getElementById('batchProduct');
+        const batchQuantityInput = document.getElementById('batchQuantity');
+        const batchDateInput = document.getElementById('batchDate');
+        const batchLotInput = document.getElementById('batchLot');
+        const batchTagInput = document.getElementById('batchTag');
+        const saveBatchBtn = document.getElementById('saveBatchBtn');
+        const deleteBatchModalBtn = document.getElementById('deleteBatchModalBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const addBatchBtnGlobal = document.getElementById('addBatchBtnGlobal');
+
+        const mixerEditModal = document.getElementById('mixerEditModal');
+        const mixerModalTitle = document.getElementById('mixerModalTitle');
+        const editingMixerIdModalInput = document.getElementById('editingMixerIdModalInput');
+        const mixerNameInput = document.getElementById('mixerNameInput');
+        const mixerOperatorInput = document.getElementById('mixerOperatorInput');
+        const saveMixerBtn = document.getElementById('saveMixerBtn');
+        const cancelMixerEditBtn = document.getElementById('cancelMixerEditBtn');
+
+        let currentEditingMixerId = null; 
+        let currentEditingBatchId = null;
+        let currentEditingBatchIndex = -1; 
+
+        let draggedItem = null;
+        let sourceMixerId = null;
+        let sourceBatchIndex = -1;
+
+        let globalLastDataEditTimestamp = null;
+        let lastDataEditedBatchId = null; // Only for data edits, not status changes
+
+        let currentWeekStartDate = new Date(2025, 4, 5); // May 5, 2025 (Month is 0-indexed)
+        
+        const tagMap = {
+            "L": { text: "LUNDI", className: "tag-LUNDI" }, "M": { text: "MARDI", className: "tag-MARDI" },
+            "E": { text: "MERCREDI", className: "tag-MERCREDI" }, "J": { text: "JEUDI", className: "tag-JEUDI" },
+            "V": { text: "VENDREDI", className: "tag-VENDREDI" }, "I": { text: "INV.", className: "tag-I" }, 
+            "B": { text: "BAS INV.", className: "tag-B" } 
+        };
+
+        function getTagDisplay(tagCode) {
+            const upperTagCode = (tagCode || "").toUpperCase();
+            if (tagMap[upperTagCode]) return tagMap[upperTagCode];
+            if (upperTagCode) return { text: upperTagCode, className: "tag-OTHER" };
+            return null; 
+        }
+        function generateId() { return 'b' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5); }
+        function formatTimestamp(date) {
+            if (!date) return "Jamais";
+            return `Le ${date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+        }
+        function updateLastEditDisplay(batchIdToMark = null) {
+            globalLastDataEditTimestamp = new Date();
+            lastDataEditedBatchId = batchIdToMark; // This marks the batch with "!"
+            lastEditInfoDiv.textContent = `Dernière modification des données : ${formatTimestamp(globalLastDataEditTimestamp)}`;
+        }
+
+        function updateWeekTitle() {
+            const startDate = new Date(currentWeekStartDate);
+            const endDate = new Date(startDate);
+            endDate.setDate(startDate.getDate() + 4); // Assuming Mon-Fri week
+
+            const startDay = startDate.getDate();
+            const startMonth = FRENCH_MONTHS[startDate.getMonth()];
+            const endDay = endDate.getDate();
+            const endMonth = FRENCH_MONTHS[endDate.getMonth()];
+            const year = startDate.getFullYear();
+
+            let titleText = `Semaine du ${startDay} `;
+            if (startMonth !== endMonth) titleText += `${startMonth} `;
+            titleText += `au ${endDay} ${endMonth} ${year}`;
+            weekTitleElement.textContent = titleText;
+        }
+
+        function changeWeek(offset) {
+            currentWeekStartDate.setDate(currentWeekStartDate.getDate() + (offset * 7));
+            updateWeekTitle();
+            // Simulate loading new data: clear batches for current mixers
+            mixersData.forEach(mixer => { mixer.batches = []; });
+            lastDataEditedBatchId = null; // Clear marker for new week's data
+            // Potentially clear lastEditInfoDiv or set to "Données pour la nouvelle semaine"
+            renderMixers(); // Re-render with empty batches (or new data if fetched)
+        }
+        prevWeekBtn.onclick = () => changeWeek(-1);
+        nextWeekBtn.onclick = () => changeWeek(1);
+
+
+        function renderMixers() {
+            mixersArea.innerHTML = '';
+            mixerSelect.innerHTML = ''; 
+
+            mixersData.forEach(mixer => {
+                const option = document.createElement('option');
+                option.value = mixer.id;
+                option.textContent = `${mixer.name} (${mixer.operator || 'N/A'})`;
+                mixerSelect.appendChild(option);
+
+                const column = document.createElement('div');
+                column.className = 'mixer-column';
+                column.dataset.mixerId = mixer.id;
+                column.addEventListener('dragover', handleDragOver);
+                column.addEventListener('drop', handleDrop);
+                column.addEventListener('dragleave', handleDragLeaveColumn);
+
+                const header = document.createElement('div');
+                header.className = 'mixer-header';
+                const headerContentWrapper = document.createElement('div');
+                headerContentWrapper.className = 'mixer-title-operator-wrapper';
+                headerContentWrapper.innerHTML = `<span class="mixer-header-name">${mixer.name}</span><span class="operator">${mixer.operator || 'N/A'}</span>`;
+                headerContentWrapper.title = 'Cliquer pour modifier le mélangeur';
+                headerContentWrapper.onclick = () => openMixerEditModal(mixer.id);
+                header.appendChild(headerContentWrapper);
+                column.appendChild(header);
+
+                const batchesContainer = document.createElement('div');
+                batchesContainer.className = 'batches-container';
+                batchesContainer.dataset.mixerId = mixer.id; 
+
+                mixer.batches.forEach((batch, index) => {
+                    if (!batch) return; 
+
+                    const batchCard = document.createElement('div');
+                    batchCard.className = 'batch-card';
+                    batchCard.dataset.batchId = batch.id;
+                    batchCard.dataset.mixerId = mixer.id; 
+                    batchCard.dataset.batchIndex = index; 
+                    batchCard.draggable = true;
+                    
+                    const statusInfo = STATUSES.find(s => s.code === batch.status) || STATUSES[0];
+                    batchCard.style.borderColor = statusInfo.color;
+
+                    batchCard.addEventListener('click', (e) => {
+                        if (e.target.closest('.batch-card-status-actions') || 
+                            e.target.closest('.last-modified-indicator') || 
+                            e.target.closest('.batch-tag')) {
+                            return; 
+                        }
+                         openEditModal(mixer.id, batch.id, index);
+                    });
+                    batchCard.addEventListener('dragstart', handleDragStart);
+                    batchCard.addEventListener('dragend', handleDragEnd);
+                    batchCard.addEventListener('dragover', handleDragOverCard);
+                    batchCard.addEventListener('dragleave', handleDragLeaveCard);
+
+                    const batchCardInnerContainer = document.createElement('div');
+                    batchCardInnerContainer.className = 'batch-card-inner-container';
+
+                    const contentWrapper = document.createElement('div');
+                    contentWrapper.className = 'batch-card-content-wrapper';
+                    
+                    const tagInfo = getTagDisplay(batch.tag);
+                    let indicatorTopPosition = '4px';
+                    if (tagInfo) {
+                        const tagElement = document.createElement('span');
+                        tagElement.className = `batch-tag ${tagInfo.className}`;
+                        tagElement.textContent = tagInfo.text;
+                        contentWrapper.appendChild(tagElement);
+                        indicatorTopPosition = '26px'; // Position indicator below the tag
+                    }
+
+                    if (batch.id === lastDataEditedBatchId) {
+                        const indicatorElement = document.createElement('span');
+                        indicatorElement.className = 'last-modified-indicator';
+                        indicatorElement.title = 'Dernier batch modifié (données)';
+                        indicatorElement.textContent = '!';
+                        indicatorElement.style.top = indicatorTopPosition;
+                        contentWrapper.appendChild(indicatorElement);
+                    }
+                    
+                    let statusTagText = statusInfo.name;
+                    if (statusInfo.code === "AWAITING_PROD") statusTagText = "En attente";
+                    else if (statusInfo.code === "IN_PRODUCTION") statusTagText = "En prod.";
+                    else if (statusInfo.code === "QC_APPROVED") statusTagText = "Approuvé CQ";
+                    else if (statusInfo.code === "READY_SHIP") statusTagText = "Prêt exp.";
+
+                    const mainDetailsHTML = `
+                        <div class="product-name">${batch.product || 'N/A'}</div>
+                        <div class="batch-detail batch-quantity"><strong>Qté:</strong> ${batch.quantity || '-'}</div>
+                        <div class="batch-detail batch-date"><strong>Date:</strong> ${batch.date || '-'}</div>
+                        <div class="batch-detail lot-number"><strong>Lot:</strong> ${batch.lot || '-'}</div>
+                        <span class="batch-status-tag" style="background-color: ${statusInfo.color};" title="${statusInfo.name}">${statusTagText}</span>
+                    `;
+                    contentWrapper.insertAdjacentHTML('beforeend', mainDetailsHTML);
+
+
+                    const statusActions = document.createElement('div');
+                    statusActions.className = 'batch-card-status-actions';
+                    STATUSES.forEach(status => {
+                        const actionButton = document.createElement('button');
+                        actionButton.className = 'status-action-tab';
+                        actionButton.dataset.statusCode = status.code;
+                        actionButton.textContent = STATUS_ABBREVIATIONS[status.code] || status.code;
+                        actionButton.title = status.name;
+                        actionButton.style.backgroundColor = status.color;
+                        actionButton.onclick = (e) => {
+                            e.stopPropagation(); 
+                            updateBatchStatusOnly(mixer.id, batch.id, status.code); // No notification
+                        };
+                        statusActions.appendChild(actionButton);
+                    });
+                    
+                    batchCardInnerContainer.appendChild(contentWrapper);
+                    batchCardInnerContainer.appendChild(statusActions);
+                    batchCard.appendChild(batchCardInnerContainer);
+                    
+                    batchesContainer.appendChild(batchCard);
+                });
+                
+                if (INITIAL_EMPTY_SLOTS_PER_MIXER > 0 && mixer.batches.filter(b => b).length < INITIAL_EMPTY_SLOTS_PER_MIXER ) {
+                    const emptySlot = document.createElement('div');
+                    emptySlot.className = 'batch-card empty';
+                    emptySlot.textContent = 'Ajouter ici';
+                    emptySlot.dataset.mixerId = mixer.id;
+                    emptySlot.onclick = () => openAddModal(mixer.id, mixer.batches.length);
+                    batchesContainer.appendChild(emptySlot);
+                }
+                column.appendChild(batchesContainer);
+                mixersArea.appendChild(column);
+            });
+        }
+        
+        function handleDragStart(e) {
+            draggedItem = e.target.closest('.batch-card'); if (!draggedItem) return;
+            sourceMixerId = draggedItem.dataset.mixerId; sourceBatchIndex = parseInt(draggedItem.dataset.batchIndex);
+            e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', draggedItem.dataset.batchId); 
+            setTimeout(() => { draggedItem.classList.add('dragging'); }, 0);
+        }
+        function handleDragEnd(e) {
+            if (draggedItem) { draggedItem.classList.remove('dragging'); }
+            document.querySelectorAll('.drop-target-hover').forEach(el => el.classList.remove('drop-target-hover'));
+            draggedItem = null; sourceMixerId = null; sourceBatchIndex = -1;
+        }
+        function handleDragOver(e) {
+            e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+            const column = e.target.closest('.mixer-column');
+            if (column && !column.classList.contains('drop-target-hover')) {
+                 document.querySelectorAll('.mixer-column.drop-target-hover').forEach(c => c.classList.remove('drop-target-hover'));
+                 column.classList.add('drop-target-hover');
+            }
+        }
+        function handleDragLeaveColumn(e){
+            const column = e.target.closest('.mixer-column');
+            if (column && (!e.relatedTarget || !column.contains(e.relatedTarget))) {
+                 column.classList.remove('drop-target-hover');
+            }
+        }
+        function handleDragOverCard(e) {
+            e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'move';
+            const targetCard = e.target.closest('.batch-card:not(.dragging)'); 
+            if (targetCard && !targetCard.classList.contains('drop-target-hover')) {
+                 document.querySelectorAll('.batch-card.drop-target-hover').forEach(c => c.classList.remove('drop-target-hover'));
+                 targetCard.classList.add('drop-target-hover');
+            }
+        }
+        function handleDragLeaveCard(e) {
+            const targetCard = e.target.closest('.batch-card');
+            if (targetCard && (!e.relatedTarget || !targetCard.contains(e.relatedTarget))) {
+                 targetCard.classList.remove('drop-target-hover');
+            }
+        }
+        function handleDrop(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.drop-target-hover').forEach(el => el.classList.remove('drop-target-hover'));
+            if (!draggedItem) return;
+
+            const targetElement = e.target;
+            const targetBatchCard = targetElement.closest('.batch-card:not(.dragging)');
+            const targetMixerColumn = targetElement.closest('.mixer-column');
+            let targetMixerId, targetBatchIndex;
+
+            if (targetBatchCard) { 
+                targetMixerId = targetBatchCard.dataset.mixerId; targetBatchIndex = parseInt(targetBatchCard.dataset.batchIndex);
+            } else if (targetMixerColumn) { 
+                targetMixerId = targetMixerColumn.dataset.mixerId;
+                const targetMixerData = mixersData.find(m => m.id === targetMixerId);
+                targetBatchIndex = targetMixerData.batches.filter(b => b).length; 
+            } else { return; }
+            
+            const srcMixer = mixersData.find(m => m.id === sourceMixerId);
+            const tgtMixer = mixersData.find(m => m.id === targetMixerId);
+            if (!srcMixer || !tgtMixer) return;
+
+            const itemToMove = srcMixer.batches.splice(sourceBatchIndex, 1)[0];
+            if (!itemToMove) return; 
+
+            tgtMixer.batches.splice(targetBatchIndex, 0, itemToMove);
+            mixersData.forEach(mixer => { mixer.batches = mixer.batches.filter(b => b); });
+            updateLastEditDisplay(itemToMove.id); // Drag & drop is a data edit
+            renderMixers(); 
+        }
+
+        function openModal(title, mixerIdVal = null, batchIdVal = null, batchIndexVal = -1) {
+            modalTitle.textContent = title;
+            currentEditingMixerId = mixerIdVal; currentEditingBatchId = batchIdVal; currentEditingBatchIndex = batchIndexVal; 
+            batchProductInput.value = ''; batchQuantityInput.value = ''; batchDateInput.value = ''; batchLotInput.value = ''; batchTagInput.value = '';
+            deleteBatchModalBtn.style.display = 'none'; 
+
+            if (mixerIdVal && batchIdVal !== null && batchIndexVal !== -1) { 
+                const mixer = mixersData.find(m => m.id === mixerIdVal);
+                if (mixer && mixer.batches[batchIndexVal] && mixer.batches[batchIndexVal].id === batchIdVal) {
+                    const batch = mixer.batches[batchIndexVal];
+                    mixerSelect.value = mixer.id; batchProductInput.value = batch.product; batchQuantityInput.value = batch.quantity;
+                    batchDateInput.value = batch.date; batchLotInput.value = batch.lot; batchTagInput.value = batch.tag;
+                    deleteBatchModalBtn.style.display = 'inline-block'; 
+                } else { console.error("Batch not found for editing or index mismatch."); return; }
+            } else { 
+                if (mixersData.length > 0) { mixerSelect.value = mixerIdVal || mixersData[0].id; }
+            }
+            mixerSelect.disabled = (batchIdVal !== null); 
+            batchModal.style.display = 'flex';
+        }
+        window.openEditModal = function(mixerId, batchId, batchIndex) { openModal('Modifier Batch', mixerId, batchId, batchIndex); }
+        window.openAddModal = function(mixerId, targetIndex) { openModal('Ajouter Batch', mixerId, null, targetIndex); }
+        addBatchBtnGlobal.onclick = function() {
+            const selectedMixerId = mixerSelect.value || (mixersData.length > 0 ? mixersData[0].id : null);
+            if (!selectedMixerId) { alert("Aucun mélangeur disponible."); return; }
+            const targetMixer = mixersData.find(m => m.id === selectedMixerId);
+            openModal('Ajouter Batch Global', selectedMixerId, null, targetMixer ? targetMixer.batches.filter(b => b).length : 0);
+        };
+        cancelBtn.onclick = function() { batchModal.style.display = 'none'; }
+        saveBatchBtn.onclick = function() {
+            const selectedMixerIdInForm = mixerSelect.value;
+            const product = batchProductInput.value.trim(); const quantity = batchQuantityInput.value.trim();
+            const date = batchDateInput.value.trim(); const lot = batchLotInput.value.trim();
+            const tag = batchTagInput.value.trim().toUpperCase();
+
+            if (!product || !selectedMixerIdInForm) { alert('Produit et Mélangeur sont requis.'); return; }
+            const targetMixer = mixersData.find(m => m.id === selectedMixerIdInForm);
+            if (!targetMixer) return;
+
+            let savedBatchId;
+            if (currentEditingBatchId && currentEditingBatchIndex !== -1 && targetMixer.batches[currentEditingBatchIndex]?.id === currentEditingBatchId) { 
+                const existingBatch = targetMixer.batches[currentEditingBatchIndex];
+                existingBatch.product = product; existingBatch.quantity = quantity; existingBatch.date = date;
+                existingBatch.lot = lot; existingBatch.tag = tag;
+                savedBatchId = existingBatch.id;
+            } else { 
+                const newBatchData = { id: generateId(), product, quantity, date, lot, tag, status: STATUSES[0].code };
+                if (currentEditingBatchIndex !== -1 && currentEditingBatchIndex <= targetMixer.batches.length) { 
+                    targetMixer.batches.splice(currentEditingBatchIndex, 0, newBatchData);
+                } else { targetMixer.batches.push(newBatchData); }
+                savedBatchId = newBatchData.id;
+            }
+            mixersData.forEach(mixer => { mixer.batches = mixer.batches.filter(b => b); });
+            updateLastEditDisplay(savedBatchId); // Modal save is a data edit
+            renderMixers();
+            batchModal.style.display = 'none';
+        }
+        deleteBatchModalBtn.onclick = function() {
+            if (currentEditingMixerId && currentEditingBatchId && currentEditingBatchIndex !== -1) {
+                if (confirm('Êtes-vous sûr de vouloir supprimer ce batch?')) {
+                    const mixer = mixersData.find(m => m.id === currentEditingMixerId);
+                    if (mixer && mixer.batches[currentEditingBatchIndex] && mixer.batches[currentEditingBatchIndex].id === currentEditingBatchId) {
+                        mixer.batches.splice(currentEditingBatchIndex, 1); 
+                        mixersData.forEach(m => { m.batches = m.batches.filter(b => b); });
+                        // Modal delete is a data edit, trigger global update.
+                        // If the deleted batch was the one marked, clear it.
+                        updateLastEditDisplay(lastDataEditedBatchId === currentEditingBatchId ? null : lastDataEditedBatchId); 
+                        renderMixers();
+                        batchModal.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        function openMixerEditModal(mixerId) {
+            const mixer = mixersData.find(m => m.id === mixerId); if (!mixer) return;
+            mixerModalTitle.textContent = `Modifier ${mixer.name}`;
+            editingMixerIdModalInput.value = mixer.id; mixerNameInput.value = mixer.name;
+            mixerOperatorInput.value = mixer.operator || "";
+            mixerEditModal.style.display = 'flex';
+        }
+        cancelMixerEditBtn.onclick = function() { mixerEditModal.style.display = 'none'; }
+        saveMixerBtn.onclick = function() {
+            const mixerId = editingMixerIdModalInput.value;
+            const newName = mixerNameInput.value.trim(); const newOperator = mixerOperatorInput.value.trim();
+            if (!newName) { alert("Le nom du mélangeur est requis."); return; }
+            const mixer = mixersData.find(m => m.id === mixerId);
+            if (mixer) {
+                mixer.name = newName; mixer.operator = newOperator;
+                updateLastEditDisplay(); // Mixer edit is a general data update
+                renderMixers();
+                mixerEditModal.style.display = 'none';
+            }
+        }
+        
+        // This function ONLY updates status and re-renders, does NOT trigger "last edit" notification.
+        function updateBatchStatusOnly(mixerId, batchId, newStatusCode) {
+            const mixer = mixersData.find(m => m.id === mixerId);
+            if (mixer) {
+                const batch = mixer.batches.find(b => b && b.id === batchId);
+                if (batch) { 
+                    batch.status = newStatusCode; 
+                    renderMixers(); // Just re-render to show new status color/tag
+                }
+            }
+        }
+        
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' || event.key === 'Esc') {
+                if (batchModal.style.display === 'flex') batchModal.style.display = 'none';
+                if (mixerEditModal.style.display === 'flex') mixerEditModal.style.display = 'none';
+            }
+        });
+        
+        updateWeekTitle(); // Initial title set
+        renderMixers(); // Initial render
+    </script>
+</body>
+</html>
