@@ -552,64 +552,230 @@
         const FRENCH_MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
 
-        let mixersData = [
-            {
-                id: "mixer1", name: "Mélangeur 1", operator: "S. Girard", batches: [
-                    { id: "m1b1", product: "Elite 2.0 REG Neutre", quantity: "20 barils", date: "5 mai 2025", lot: "L-25384", tag: "", status: STATUSES[0].code },
-                    { id: "m1b2", product: "Elite 2.0 SUPER ÉTÉ", quantity: "10 barils", date: "6 mai 2025", lot: "L-25369", tag: "E", status: STATUSES[1].code },
-                    { id: "m1b3", product: "B-5023", quantity: "2 totes", date: "7 mai 2025", lot: "L-25370", tag: "J", status: STATUSES[0].code },
-                    { id: "m1b4", product: "B-5022", quantity: "12 barils", date: "8 mai 2025", lot: "L-25371", tag: "I", status: STATUSES[0].code },
-                    { id: "m1b5", product: "B-5022 Bleu", quantity: "12 barils", date: "9 mai 2025", lot: "L-25372", tag: "", status: STATUSES[0].code }
-                ]
-            },
-            {
-                id: "mixer2", name: "Mélangeur 2", operator: "Sylvain", batches: [
-                    { id: "m2b1", product: "MÉLANGEUR 6", quantity: "", date: "", lot: "", tag: "", status: STATUSES[0].code },
-                    { id: "m2b2", product: "Versa-Flex 1025", quantity: "1 baril 200kg", date: "7 mai 2025", lot: "L25392", tag: "I", status: STATUSES[2].code },
-                    { id: "m2b3", product: "B-1141", quantity: "4 barils 225kg", date: "6 mai 2025", lot: "L-25348", tag: "I", status: STATUSES[0].code},
-                    { id: "m2b4", product: "F48-1 Noir", quantity: "1 baril 200kg", date: "7 mai 2025", lot: "L-25387", tag: "B", status: STATUSES[0].code},
-                    { id: "m2b5", product: "F48-7 aluminium", quantity: "1 baril", date: "6 mai 2025", lot: "L-25391", tag: "", status: STATUSES[0].code},
-                ]
-            },
-            // ... (rest of mixersData as before) ...
-             {
-                id: "mixer3", name: "Mélangeur 3", operator: "Patrick", batches: [
-                    { id: "m3b1", product: "Agri-Gen", quantity: "20 barils", date: "5 mai 2025", lot: "L-25374", tag: "M", status: STATUSES[0].code },
-                    { id: "m3b2", product: "Floraseal", quantity: "32 barils", date: "6 mai 2025", lot: "L-25375", tag: "I", status: STATUSES[0].code },
-                    { id: "m3b3", product: "B-5030", quantity: "24 barils 225kg", date: "6 mai 2025", lot: "L-25385", tag: "", status: STATUSES[0].code },
-                    { id: "m3b4", product: "Elite 2.0 ÉTÉ Neutre", quantity: "44 barils", date: "7 mai 2025", lot: "L-25388", tag: "", status: STATUSES[0].code },
-                    { id: "m3b5", product: "Elite 2.0 ÉTÉ Vert", quantity: "46 barils", date: "8 mai 2025", lot: "L-25393", tag: "", status: STATUSES[0].code }
-                ]
-            },
-            {
-                id: "mixer4", name: "Mélangeur 4", operator: "Dylan", batches: [
-                    { id: "m4b1", product: "Boréal Été", quantity: "8 totes + 32 barils", date: "5 mai 2025", lot: "L-25367", tag: "B", status: STATUSES[0].code },
-                    { id: "m4b2", product: "Boréal Été", quantity: "4 totes + 52 barils", date: "6 mai 2025", lot: "L-25376", tag: "B", status: STATUSES[0].code },
-                    { id: "m4b3", product: "Elite 2.0 REG", quantity: "20 barils vert + 32 barils Neutre", date: "7 mai 2025", lot: "L-25389", tag: "B", status: STATUSES[0].code },
-                    { id: "m4b4", product: "Boréal Été", quantity: "2 totes + 62 barils", date: "7 mai 2025", lot: "L-25377", tag: "B", status: STATUSES[0].code }
-                ]
-            },
-            {
-                id: "mixer5", name: "Mélangeur 5", operator: "Mario", batches: [
-                    { id: "m5b1", product: "Boréal Reg", quantity: "9 tôtes 1125Kg", date: "6 mai 2025", lot: "L-25386", tag: "", status: STATUSES[0].code },
-                    { id: "m5b2", product: "Boréal Été", quantity: "4 totes + 52 barils", date: "5 mai 2025", lot: "L-25378", tag: "B", status: STATUSES[0].code },
-                    { id: "m5b3", product: "Boréal Été", quantity: "2 totes 1200kg + 61 barils", date: "6 mai 2025", lot: "L-25379", tag: "B", status: STATUSES[0].code }
-                ]
-            },
-            {
-                id: "mixer6", name: "Mélangeur 6", operator: "", batches: [
-                    { id: "m6b1", product: "F48-7 aluminium", quantity: "16 barils 200kg", date: "5 mai 2025", lot: "L-25383", tag: "I", status: STATUSES[0].code },
-                    { id: "m6b2", product: "F46-1 Noir", quantity: "10 barils 200kg", date: "5 mai 2025", lot: "L-25380", tag: "", status: STATUSES[0].code }
-                ]
-            },
-            {
-                id: "mixer7", name: "Mélangeur 7", operator: "Robin", batches: [
-                    { id: "m7b1", product: "Boréal Été", quantity: "4 totes + 60 barils", date: "5 mai 2025", lot: "L-25381", tag: "B", status: STATUSES[0].code },
-                    { id: "m7b2", product: "Boréal Été", quantity: "6 totes + 50 barils", date: "6 mai 2025", lot: "L-25382", tag: "", status: STATUSES[0].code },
-                    { id: "m7b3", product: "Elite 50", quantity: "80 barils", date: "8 mai 2025", lot: "L-25390", tag: "", status: STATUSES[0].code }
-                ]
-            }
-        ];
+
+let mixersData = [
+  {
+    id: "mixer1",
+    name: "Mélangeur 1",
+    operator: "S. Gervais",
+    batches: [
+      {
+        id: "m1b1",
+        product: "Duraseal HFO",
+        quantity: "16 barils",
+        date: "20 mai 2025",
+        lot: "L-25399",
+        tag: "M",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m1b2",
+        product: "B-1116",
+        quantity: "6 totes",
+        date: "21 mai 2025",
+        lot: "L-25426",
+        tag: "E",
+        status: STATUSES[0].code
+      }
+    ]
+  },
+  {
+    id: "mixer2",
+    name: "Mélangeur 2",
+    operator: "S. Girard",
+    batches: [
+      {
+        id: "m2b1",
+        product: "RK-4 Gris Clair",
+        quantity: "1 chaudière",
+        date: "20 mai 2025",
+        lot: "L-25427",
+        tag: "M",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m2b2",
+        product: "B-3005 FAST",
+        quantity: "1 baril",
+        date: "21 mai 2025",
+        lot: "L-25429",
+        tag: "E",
+        status: STATUSES[0].code
+      }
+    ]
+  },
+  {
+    id: "mixer3",
+    name: "Mélangeur 3",
+    operator: "Dylan",
+    batches: [
+      {
+        id: "m3b1",
+        product: "B-1040 FAST",
+        quantity: "4 barils",
+        date: "20 mai 2025",
+        lot: "L-25428",
+        tag: "M",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m3b2",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes + 36 barils",
+        date: "21 mai 2025",
+        lot: "L-25431",
+        tag: "E",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m3b3",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes + 36 barils",
+        date: "22 mai 2025",
+        lot: "L-25432",
+        tag: "J",
+        status: STATUSES[0].code
+      }
+    ]
+  },
+  {
+    id: "mixer4",
+    name: "Mélangeur 4",
+    operator: "Benjamin",
+    batches: [
+      {
+        id: "m4b1",
+        product: "Boréal ÉTÉ",
+        quantity: "9 totes 1125kg",
+        date: "20 mai 2025",
+        lot: "L-25430",
+        tag: "M",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m4b2",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes + 62 barils",
+        date: "21 mai 2025",
+        lot: "L-25433",
+        tag: "E",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m4b3",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes + 62 barils",
+        date: "22 mai 2025",
+        lot: "L-25434",
+        tag: "J",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m4b4",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes 1200kg + 61 barils",
+        date: "23 mai 2025",
+        lot: "L-25435",
+        tag: "V",
+        status: STATUSES[0].code
+      }
+    ]
+  },
+  {
+    id: "mixer5",
+    name: "Mélangeur 5",
+    operator: "Mario",
+    batches: [
+      {
+        id: "m5b1",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes + 62 barils",
+        date: "20 mai 2025",
+        lot: "L-25412",
+        tag: "M",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m5b2",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes 1200kg + 61 barils",
+        date: "21 mai 2025",
+        lot: "L-25436",
+        tag: "E",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m5b3",
+        product: "Elite 2.0 ÉTÉ VERT",
+        quantity: "72 barils",
+        date: "22 mai 2025",
+        lot: "L-25437",
+        tag: "J",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m5b4",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes + 62 barils",
+        date: "23 mai 2025",
+        lot: "L-25413",
+        tag: "V",
+        status: STATUSES[0].code
+      }
+    ]
+  },
+  {
+    id: "mixer6",
+    name: "Mélangeur 6",
+    operator: "",
+    batches: []
+  },
+  {
+    id: "mixer7",
+    name: "Mélangeur 7",
+    operator: "Patrick",
+    batches: [
+      {
+        id: "m7b1",
+        product: "Elite 2.0 ÉTÉ",
+        quantity: "64 barils Vert + 16 barils Neutre",
+        date: "20 mai 2025",
+        lot: "L-25438",
+        tag: "M",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m7b2",
+        product: "Boréal ÉTÉ",
+        quantity: "2 totes + 72 barils",
+        date: "21 mai 2025",
+        lot: "L-25439",
+        tag: "E",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m7b3",
+        product: "Elite 50",
+        quantity: "80 barils",
+        date: "22 mai 2025",
+        lot: "L-25440",
+        tag: "J",
+        status: STATUSES[0].code
+      },
+      {
+        id: "m7b4",
+        product: "Elite 50",
+        quantity: "80 barils",
+        date: "23 mai 2025",
+        lot: "L-25441",
+        tag: "V",
+        status: STATUSES[0].code
+      }
+    ]
+  }
+];
+
+
 
         const mixersArea = document.getElementById('mixersArea');
         const lastEditInfoDiv = document.getElementById('lastEditInfo');
@@ -649,7 +815,7 @@
         let globalLastDataEditTimestamp = null;
         let lastDataEditedBatchId = null; // Only for data edits, not status changes
 
-        let currentWeekStartDate = new Date(2025, 4, 5); // May 5, 2025 (Month is 0-indexed)
+        let currentWeekStartDate = new Date(2025, 4, 19); // May 5, 2025 (Month is 0-indexed)
 
         const tagMap = {
             "L": { text: "LUNDI", className: "tag-LUNDI" }, "M": { text: "MARDI", className: "tag-MARDI" },
