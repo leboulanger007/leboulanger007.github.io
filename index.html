@@ -557,11 +557,13 @@
 
 
 
+
+
 let mixersData = [
   {
     id: "mixer1",
     name: "Mélangeur 1",
-    operator: "S.Gervais",
+    operator: "S.Gervais", // Image: S.Gervais
     batches: [
       {
         id: "m1b1",
@@ -569,16 +571,16 @@ let mixersData = [
         quantity: "16 barils",
         date: "20 mai 2025",
         lot: "L-25399",
-        tag: "M",
+        tag: "M", // Image: M L-25399
         status: STATUSES[0].code
       },
       {
         id: "m1b2",
         product: "B-1116",
-        quantity: "6 tôtes",
+        quantity: "6 tôtes", // Image: 6 tôtes
         date: "21 mai 2025",
         lot: "L-25426",
-        tag: "J",
+        tag: "J", // Image: J L-25426
         status: STATUSES[0].code
       }
     ]
@@ -586,7 +588,7 @@ let mixersData = [
   {
     id: "mixer2",
     name: "Mélangeur 2",
-    operator: "S.Girard",
+    operator: "S.Girard", // Image: S.Girard
     batches: [
       {
         id: "m2b1",
@@ -594,7 +596,7 @@ let mixersData = [
         quantity: "1 chaudière",
         date: "20 mai 2025",
         lot: "L-25427",
-        tag: "M",
+        tag: "M", // Image: M L-25427
         status: STATUSES[0].code
       },
       {
@@ -603,7 +605,7 @@ let mixersData = [
         quantity: "1 baril",
         date: "21 mai 2025",
         lot: "L-25429",
-        tag: "J",
+        tag: "J", // Image: J L-25429
         status: STATUSES[0].code
       }
     ]
@@ -615,29 +617,29 @@ let mixersData = [
     batches: [
       {
         id: "m3b1",
-        product: "B-1040 FAST",
+        product: "B-1040 FAST", // Image, Dylan's first entry
         quantity: "4 barils",
         date: "20 mai 2025",
         lot: "L-25428",
-        tag: "E",
+        tag: "E", // Image: E L-25428
         status: STATUSES[0].code
       },
       {
         id: "m3b2",
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes + 36 barils",
+        quantity: "2 tôtes + 36 barils", // Image: 2 tôtes + 36 barils
         date: "21 mai 2025",
         lot: "L-25431",
-        tag: "B",
+        tag: "B", // Image: B L-25431
         status: STATUSES[0].code
       },
       {
         id: "m3b3",
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes + 36 barils",
+        quantity: "2 tôtes + 36 barils", // Image: 2 tôtes + 36 barils
         date: "22 mai 2025",
         lot: "L-25432",
-        tag: "B",
+        tag: "B", // Image: B L-25432
         status: STATUSES[0].code
       }
     ]
@@ -648,47 +650,47 @@ let mixersData = [
     operator: "Benjamin",
     batches: [
       {
-        id: "m4b1",
+        id: "m4b1", // Corresponds to first entry for Benjamin in image
         product: "Boréal ÉTÉ",
-        quantity: "9 tôtes 1125kg",
+        quantity: "9 tôtes 1125kg", // Image: 9 tôtes 1125kg
         date: "20 mai 2025",
-        lot: "L-25430",
+        lot: "L-25430", // Image: B L-25430
         tag: "B",
         status: STATUSES[0].code
       },
       {
-        id: "m4b2",
+        id: "m4b2", // Corresponds to second entry for Benjamin in image
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes + 62 barils",
-        date: "20 mai 2025",
-        lot: "L-25410",
+        quantity: "2 tôtes + 62 barils", // Image: 2 tôtes + 62 barils
+        date: "20 mai 2025", // Image: 20 mai 2025 (same row as Dylan's first product)
+        lot: "L-25410", // Image: B L-25410
         tag: "B",
         status: STATUSES[0].code
       },
       {
-        id: "m4b3",
+        id: "m4b3", // Corresponds to third entry for Benjamin in image
         product: "Boréal ÉTÉ",
-        quantity: "6 tôtes + 42 barils",
+        quantity: "6 tôtes + 42 barils", // Image: 6 tôtes + 42 barils
         date: "21 mai 2025",
-        lot: "L-25433",
+        lot: "L-25433", // Image: B L-25433
         tag: "B",
         status: STATUSES[0].code
       },
       {
-        id: "m4b4",
+        id: "m4b4", // Corresponds to fourth entry for Benjamin in image
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes + 62 barils",
+        quantity: "2 tôtes + 62 barils", // Image: 2 tôtes + 62 barils
         date: "22 mai 2025",
-        lot: "L-25434",
+        lot: "L-25434", // Image: B L-25434
         tag: "B",
         status: STATUSES[0].code
       },
       {
-        id: "m4b5",
+        id: "m4b5", // Corresponds to fifth entry for Benjamin in image
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes 1200kg + 61 barils",
+        quantity: "2 tôtes 1200kg + 61 barils", // Image: 2 tôtes 1200kg + 61 barils
         date: "23 mai 2025",
-        lot: "L-25435",
+        lot: "L-25435", // Image: B L-25435
         tag: "B",
         status: STATUSES[0].code
       }
@@ -702,19 +704,19 @@ let mixersData = [
       {
         id: "m5b1",
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes + 62 barils",
+        quantity: "2 tôtes + 62 barils", // Image: 2 tôtes + 62 barils
         date: "20 mai 2025",
         lot: "L-25412",
-        tag: "B",
+        tag: "B", // Image: B L-25412
         status: STATUSES[0].code
       },
       {
         id: "m5b2",
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes 1200kg + 61 barils",
+        quantity: "2 tôtes 1200kg + 61 barils", // Image: 2 tôtes 1200kg + 61 barils
         date: "21 mai 2025",
         lot: "L-25436",
-        tag: "B",
+        tag: "B", // Image: B L-25436
         status: STATUSES[0].code
       },
       {
@@ -723,16 +725,16 @@ let mixersData = [
         quantity: "72 barils",
         date: "22 mai 2025",
         lot: "L-25437",
-        tag: "B",
+        tag: "B", // Image: B L-25437
         status: STATUSES[0].code
       },
       {
         id: "m5b4",
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes + 62 barils",
+        quantity: "2 tôtes + 62 barils", // Image: 2 tôtes + 62 barils
         date: "23 mai 2025",
         lot: "L-25413",
-        tag: "B",
+        tag: "B", // Image: B L-25413
         status: STATUSES[0].code
       }
     ]
@@ -740,8 +742,8 @@ let mixersData = [
   {
     id: "mixer6",
     name: "Mélangeur 6",
-    operator: "",
-    batches: []
+    operator: "", // Image: empty operator cell
+    batches: [] // Image: empty cells for batches
   },
   {
     id: "mixer7",
@@ -754,16 +756,16 @@ let mixersData = [
         quantity: "64 barils Vert + 16 barils Neutre",
         date: "20 mai 2025",
         lot: "L-25438",
-        tag: "B",
+        tag: "B", // Image: B L-25438
         status: STATUSES[0].code
       },
       {
         id: "m7b2",
         product: "Boréal ÉTÉ",
-        quantity: "2 tôtes + 72 barils",
+        quantity: "2 tôtes + 72 barils", // Image: 2 tôtes + 72 barils
         date: "21 mai 2025",
         lot: "L-25439",
-        tag: "B",
+        tag: "B", // Image: B L-25439
         status: STATUSES[0].code
       },
       {
@@ -772,7 +774,7 @@ let mixersData = [
         quantity: "80 barils",
         date: "22 mai 2025",
         lot: "L-25440",
-        tag: "B",
+        tag: "B", // Image: B L-25440
         status: STATUSES[0].code
       },
       {
@@ -781,13 +783,12 @@ let mixersData = [
         quantity: "80 barils",
         date: "23 mai 2025",
         lot: "L-25441",
-        tag: "B",
+        tag: "B", // Image: B L-25441
         status: STATUSES[0].code
       }
     ]
   }
 ];
-
 
         const mixersArea = document.getElementById('mixersArea');
         const lastEditInfoDiv = document.getElementById('lastEditInfo');
